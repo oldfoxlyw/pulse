@@ -19,6 +19,7 @@ CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_products` (
   `product_url_website` CHAR(128) NULL COMMENT '游戏官网链接' ,
   `product_url_entry` CHAR(128) NOT NULL COMMENT '游戏入口链接' ,
   `product_status` ENUM('PUBLIC','BETA','HOT') NOT NULL DEFAULT 'PUBLIC' ,
+  `product_recommand` BIT NOT NULL DEFAULT 1 ,
   PRIMARY KEY (`product_id`) )
 ENGINE = InnoDB
 AUTO_INCREMENT = 1001;

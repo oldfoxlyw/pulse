@@ -1,6 +1,6 @@
-���ݿ�/*.bak
 */config/development
 */logs/log-*.php
 */logs/!index.html
 */cache/*
 */cache/!index.html
+/数据库/pulse数据库模型.mwb.bak
