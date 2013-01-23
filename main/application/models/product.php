@@ -1,7 +1,7 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Product extends CI_Model {
+class Product extends CI_Model implements ICrud {
 	private $productTable = 'pulse_products';
 	
 	public function __construct()
