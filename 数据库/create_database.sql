@@ -79,6 +79,22 @@ CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_account` (
   PRIMARY KEY (`account_id`) )
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `pulse_db_web`.`pulse_activity`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pulse_db_web`.`pulse_activity` ;
+
+CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_activity` (
+  `activity_id` INT NOT NULL AUTO_INCREMENT ,
+  `activity_name` CHAR(32) NOT NULL ,
+  `activity_url` CHAR(128) NOT NULL ,
+  `activity_loop` BIT NOT NULL DEFAULT 1 ,
+  `activity_time_start` INT NOT NULL ,
+  `activity_time_end` INT NOT NULL ,
+  PRIMARY KEY (`activity_id`) )
+ENGINE = InnoDB;
+
 USE `pulse_db_web` ;
 
 
