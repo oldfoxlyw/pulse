@@ -19,6 +19,10 @@ class Index extends CI_Controller
 	{
 		parent::__construct();
 		$this->rootPath = $this->config->item('root_path');
+		
+		$this->load->model('activity');
+		$this->load->model('product');
+		$this->load->model('news');
 	}
 	
 	public function index()
