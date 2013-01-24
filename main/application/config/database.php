@@ -50,7 +50,7 @@ $active_record = TRUE;
 
 $db['webdb']['hostname'] = 'localhost';
 $db['webdb']['username'] = 'root';
-$db['webdb']['password'] = '100200';
+$db['webdb']['password'] = '84@41%%wi96^4';
 $db['webdb']['database'] = 'pulse_db_web';
 $db['webdb']['dbdriver'] = 'mysqli';
 $db['webdb']['dbprefix'] = '';

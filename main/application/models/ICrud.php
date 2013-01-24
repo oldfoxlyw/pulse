@@ -12,9 +12,9 @@ interface ICrud
 	 * @author Administrator
 	 * @version Pulse ICrud.php - 1.0.1.20130123 09:10
 	 */
-	function count($parameter = null);
+	function count($parameter = null, $extension = null);
 	function create($row);
-	function read($parameter = null, $limit = 0, $offset = 0);
+	function read($parameter = null, $extension = null, $limit = 0, $offset = 0);
 	function update($id, $row);
 	function delete($id);
 }

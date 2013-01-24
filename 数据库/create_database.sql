@@ -90,8 +90,10 @@ CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_activity` (
   `activity_name` CHAR(32) NOT NULL ,
   `activity_url` CHAR(128) NOT NULL ,
   `activity_loop` BIT NOT NULL DEFAULT 1 ,
+  `activity_looptype` INT NOT NULL DEFAULT 1 COMMENT 'activity_looptype\n0=不重复\n1=每天\n2=每周\n3=每月' ,
   `activity_time_start` INT NOT NULL ,
   `activity_time_end` INT NOT NULL ,
+  `product_id` INT NOT NULL ,
   PRIMARY KEY (`activity_id`) )
 ENGINE = InnoDB;
 

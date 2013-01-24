@@ -1,5 +1,6 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
+require_once('ICrud.php');
 
 class Activity extends CI_Model implements ICrud {
 	private $productTable = 'pulse_activity';
@@ -9,9 +10,16 @@ class Activity extends CI_Model implements ICrud {
 		parent::__construct();
 	}
 	
-	public function count($parameter = null)
+	public function count($parameter = null, $extension = null)
 	{
 		if(!empty($parameter))
+		{
+			foreach($parameter as $key=>$value)
+			{
+				$this->db->where($key, $value);
+			}
+		}
+		if(!empty($extension))
 		{
 			
 		}
@@ -30,16 +38,23 @@ class Activity extends CI_Model implements ICrud {
 		}
 	}
 	
-	public function read($parameter = null, $limit = 0, $offset = 0)
+	public function read($parameter = null, $extension = null, $limit = 0, $offset = 0)
 	{
 		if(!empty($parameter))
+		{
+			foreach($parameter as $key=>$value)
+			{
+				$this->db->where($key, $value);
+			}
+		}
+		if(!empty($extension))
 		{
 			
 		}
 		if($limit==0 && $offset==0) {
-			$query = $this->db->get($this->accountTable);
+			$query = $this->db->get($this->productTable);
 		} else {
-			$query = $this->db->get($this->accountTable, $limit, $offset);
+			$query = $this->db->get($this->productTable, $limit, $offset);
 		}
 		if($query->num_rows() > 0) {
 			return $query->result();
