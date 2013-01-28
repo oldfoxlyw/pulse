@@ -27,6 +27,7 @@ class Index extends CI_Controller
 	
 	public function index()
 	{
+		echo '1';
 		$currentTimeStamp = time();
 		//获取活动列表
 		$activityResult = array();
