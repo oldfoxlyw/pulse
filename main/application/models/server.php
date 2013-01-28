@@ -2,7 +2,7 @@
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class Server extends CI_Model implements ICrud {
-	private $productTable = 'pulse_serverlist';
+	private $serverTable = 'pulse_serverlist';
 	
 	public function __construct()
 	{
@@ -22,14 +22,14 @@ class Server extends CI_Model implements ICrud {
 		{
 			
 		}
-		return $this->db->count_all_results($this->productTable);
+		return $this->db->count_all_results($this->serverTable);
 	}
 	
 	public function create($row)
 	{
 		if(!empty($row))
 		{
-			return $this->db->insert($this->productTable, $row);
+			return $this->db->insert($this->serverTable, $row);
 		}
 		else
 		{
@@ -48,12 +48,15 @@ class Server extends CI_Model implements ICrud {
 		}
 		if(!empty($extension))
 		{
-			
+			if(!empty($extension['orderby']))
+			{
+				$this->db->order_by($extension['orderby'][0], $extension['orderby'][1]);
+			}
 		}
 		if($limit==0 && $offset==0) {
-			$query = $this->db->get($this->accountTable);
+			$query = $this->db->get($this->serverTable);
 		} else {
-			$query = $this->db->get($this->accountTable, $limit, $offset);
+			$query = $this->db->get($this->serverTable, $limit, $offset);
 		}
 		if($query->num_rows() > 0) {
 			return $query->result();
@@ -70,7 +73,7 @@ class Server extends CI_Model implements ICrud {
 			{
 				$this->db->where('product_id', $id['product_id']);
 				$this->db->where('server_id', $id['server_id']);
-				return $this->db->update($this->productTable, $row);
+				return $this->db->update($this->serverTable, $row);
 			}
 			else
 			{
@@ -91,7 +94,7 @@ class Server extends CI_Model implements ICrud {
 			{
 				$this->db->where('product_id', $id['product_id']);
 				$this->db->where('server_id', $id['server_id']);
-				return $this->db->delete($this->productTable);
+				return $this->db->delete($this->serverTable);
 			}
 			else
 			{

@@ -51,9 +51,9 @@ class Product extends CI_Model implements ICrud {
 			
 		}
 		if($limit==0 && $offset==0) {
-			$query = $this->db->get($this->accountTable);
+			$query = $this->db->get($this->productTable);
 		} else {
-			$query = $this->db->get($this->accountTable, $limit, $offset);
+			$query = $this->db->get($this->productTable, $limit, $offset);
 		}
 		if($query->num_rows() > 0) {
 			return $query->result();

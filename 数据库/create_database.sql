@@ -15,11 +15,12 @@ CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_products` (
   `product_id` INT NOT NULL AUTO_INCREMENT ,
   `product_name` CHAR(16) NOT NULL COMMENT '游戏名称' ,
   `product_category` CHAR(16) NOT NULL COMMENT '游戏类型' ,
-  `product_comment` TEXT NULL COMMENT '游戏描述' ,
-  `product_url_website` CHAR(128) NULL COMMENT '游戏官网链接' ,
+  `product_comment` TEXT NOT NULL COMMENT '游戏描述' ,
+  `product_url_website` CHAR(128) NOT NULL COMMENT '游戏官网链接' ,
   `product_url_entry` CHAR(128) NOT NULL COMMENT '游戏入口链接' ,
   `product_status` ENUM('PUBLIC','BETA','HOT') NOT NULL DEFAULT 'PUBLIC' ,
-  `product_recommand` BIT NOT NULL DEFAULT 1 ,
+  `product_recommand` TINYINT NOT NULL DEFAULT 1 ,
+  `product_sort` INT NOT NULL DEFAULT 0 ,
   PRIMARY KEY (`product_id`) )
 ENGINE = InnoDB
 AUTO_INCREMENT = 1001;
@@ -71,7 +72,7 @@ CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_account` (
   `account_email` CHAR(64) NOT NULL ,
   `account_mobile` CHAR(32) NOT NULL ,
   `account_nickname` CHAR(16) NOT NULL ,
-  `account_sex` BIT NOT NULL DEFAULT 1 ,
+  `account_sex` TINYINT NOT NULL DEFAULT 1 ,
   `account_birthday` INT NOT NULL DEFAULT 0 ,
   `account_country` CHAR(32) NOT NULL ,
   `account_city` CHAR(32) NOT NULL ,
@@ -89,7 +90,7 @@ CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_activity` (
   `activity_id` INT NOT NULL AUTO_INCREMENT ,
   `activity_name` CHAR(32) NOT NULL ,
   `activity_url` CHAR(128) NOT NULL ,
-  `activity_loop` BIT NOT NULL DEFAULT 1 ,
+  `activity_loop` TINYINT NOT NULL DEFAULT 1 ,
   `activity_looptype` INT NOT NULL DEFAULT 1 COMMENT 'activity_looptype\n0=不重复\n1=每天\n2=每周\n3=每月' ,
   `activity_time_start` INT NOT NULL ,
   `activity_time_end` INT NOT NULL ,
