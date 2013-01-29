@@ -28,7 +28,16 @@ class Index extends CI_Controller
 	
 	public function index()
 	{
-		$this->load->model('account');
+		$this->load->model('feed');
+		
+		$feedResult = $this->feed->read(array(
+			'account_id'	=>	$this->user->account_id
+		), array(
+			'orderby'		=>	array(
+				'feed_time',
+				'desc'
+			)
+		), 1);
 	}
 }
 ?>

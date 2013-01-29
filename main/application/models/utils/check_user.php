@@ -17,7 +17,7 @@ class Check_user extends CI_Model {
 		if(!$this->input->cookie($cookieName, TRUE)) {
 			
 			if($redirect)
-				redirect("/message?info=USER_CHECK_EXPIRED&redirect={$redirectUrl}&auto_redirect=1&auto_delay=5");
+				redirect("/message?type=0&info=USER_CHECK_EXPIRED&redirect={$redirectUrl}&auto_redirect=1&auto_delay=5");
 			
 		} else {
 			$cookie = $this->input->cookie($cookieName, TRUE);
@@ -35,7 +35,7 @@ class Check_user extends CI_Model {
 					$this->resetCookie();
 					if($redirect)
 					{
-						redirect("/message?info=USER_CHECK_CHECKCODE_INVALID&redirect={$redirectUrl}");
+						redirect("/message?type=0&info=USER_CHECK_CHECKCODE_INVALID&redirect={$redirectUrl}");
 					}
 					
 				} else {
@@ -46,7 +46,7 @@ class Check_user extends CI_Model {
 				$this->resetCookie();
 				if($redirect)
 				{
-					redirect("/message?info=USER_CHECK_INVALID&redirect={$redirectUrl}");
+					redirect("/message?type=0&info=USER_CHECK_INVALID&redirect={$redirectUrl}");
 				}
 				
 			}

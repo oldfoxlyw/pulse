@@ -73,7 +73,7 @@ class Login extends CI_Controller
 					'user_name'	=>	$accountName
 				));
 				$redirect = urlencode($this->rootPath . 'user/login?redirect=' . $redirectUrl);
-				redirect("/message?info=USER_INVALID&redirect={$redirect}");
+				redirect("/message?type=0&info=USER_INVALID&redirect={$redirect}");
 			}
 			else
 			{
@@ -118,7 +118,7 @@ class Login extends CI_Controller
 		else
 		{
 			$redirect = urlencode($this->rootPath . 'user/login?redirect=' . $redirectUrl);
-			redirect("/message?info=USER_LOGIN_ERROR_NO_PARAM&redirect={$redirect}&auto_redirect=1&auto_delay=5");
+			redirect("/message?type=0&info=USER_LOGIN_ERROR_NO_PARAM&redirect={$redirect}&auto_redirect=1&auto_delay=5");
 		}
 	}
 }

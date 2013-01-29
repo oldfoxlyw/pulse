@@ -77,7 +77,9 @@ CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_account` (
   `account_country` CHAR(32) NOT NULL ,
   `account_city` CHAR(32) NOT NULL ,
   `account_job` CHAR(32) NOT NULL ,
-  PRIMARY KEY (`account_id`) )
+  `account_lastlogin` INT NOT NULL ,
+  PRIMARY KEY (`account_id`) ,
+  INDEX `account_name` (`account_name` ASC, `account_pass` ASC) )
 ENGINE = InnoDB;
 
 
@@ -113,6 +115,22 @@ CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_log` (
   `log_parameter` TEXT NOT NULL ,
   `log_time_local` DATETIME NOT NULL ,
   PRIMARY KEY (`log_id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pulse_db_web`.`pulse_feed`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pulse_db_web`.`pulse_feed` ;
+
+CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_feed` (
+  `feed_id` BIGINT NOT NULL AUTO_INCREMENT ,
+  `account_id` BIGINT NOT NULL ,
+  `product_id` INT NOT NULL ,
+  `server_id` INT NOT NULL ,
+  `feed_time` INT NOT NULL ,
+  PRIMARY KEY (`feed_id`) ,
+  INDEX `account_id` (`account_id` ASC) )
 ENGINE = InnoDB;
 
 USE `pulse_db_web` ;
