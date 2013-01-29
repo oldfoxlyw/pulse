@@ -1,5 +1,6 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
+require_once('ICrud.php');
 
 class Product extends CI_Model implements ICrud {
 	private $productTable = 'pulse_products';

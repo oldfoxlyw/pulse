@@ -1,5 +1,6 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
+require_once('ICrud.php');
 
 class News extends CI_Model implements ICrud {
 	private $newsTable = 'pulse_news';

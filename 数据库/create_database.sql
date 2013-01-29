@@ -98,6 +98,23 @@ CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_activity` (
   PRIMARY KEY (`activity_id`) )
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `pulse_db_web`.`pulse_log`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pulse_db_web`.`pulse_log` ;
+
+CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_log` (
+  `log_id` BIGINT NOT NULL AUTO_INCREMENT ,
+  `log_type` CHAR(32) NOT NULL ,
+  `log_account_name` CHAR(32) NOT NULL ,
+  `log_uri` CHAR(128) NOT NULL ,
+  `log_method` CHAR(8) NOT NULL ,
+  `log_parameter` TEXT NOT NULL ,
+  `log_time_local` DATETIME NOT NULL ,
+  PRIMARY KEY (`log_id`) )
+ENGINE = InnoDB;
+
 USE `pulse_db_web` ;
 
 

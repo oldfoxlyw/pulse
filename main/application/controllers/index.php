@@ -9,8 +9,8 @@ class Index extends CI_Controller
 	 * 
 	 * 提供首页的逻辑层
 	 * 
-	 * @author Administrator
-	 * @version Pulse index.php - 1.0.1.20130123 17:21
+	 * @author johnnyEven
+	 * @version Pulse index.php - 1.0.1.20130128 17:21
 	 */
 	private $rootPath;
 	private $pageName = 'index';
@@ -116,7 +116,6 @@ class Index extends CI_Controller
 			)
 		);
 		$productResult = $this->product->read($parameter, $extension, 8);
-		var_dump($productResult);
 		//获取推荐游戏结束
 		
 		//获取新闻公告

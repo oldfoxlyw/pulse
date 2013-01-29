@@ -1,8 +1,9 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
+require_once('ICrud.php');
 
-class News extends CI_Model implements ICrud {
-	private $productTable = 'pulse_account';
+class Account extends CI_Model implements ICrud {
+	private $accountTable = 'pulse_account';
 	
 	public function __construct()
 	{
@@ -22,14 +23,14 @@ class News extends CI_Model implements ICrud {
 		{
 			
 		}
-		return $this->db->count_all_results($this->productTable);
+		return $this->db->count_all_results($this->accountTable);
 	}
 	
 	public function create($row)
 	{
 		if(!empty($row))
 		{
-			return $this->db->insert($this->productTable, $row);
+			return $this->db->insert($this->accountTable, $row);
 		}
 		else
 		{
@@ -67,7 +68,7 @@ class News extends CI_Model implements ICrud {
 		if(!empty($id) && !empty($row))
 		{
 			$this->db->where('account_id', $id);
-			return $this->db->update($this->productTable, $row);
+			return $this->db->update($this->accountTable, $row);
 		}
 		else
 		{
@@ -80,7 +81,7 @@ class News extends CI_Model implements ICrud {
 		if(!empty($id))
 		{
 			$this->db->where('account_id', $id);
-			return $this->db->delete($this->productTable);
+			return $this->db->delete($this->accountTable);
 		}
 		else
 		{
