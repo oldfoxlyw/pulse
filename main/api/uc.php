@@ -121,6 +121,7 @@ class uc_note {
 	}
 
 	function synlogin($get, $post) {
+		global $cookiepre;
 		$uid = $get['uid'];
 		$username = $get['username'];
 		if(!API_SYNLOGIN) {
@@ -133,7 +134,8 @@ class uc_note {
 		$cookieStr = json_encode($cookie);
 
 		header('P3P: CP="CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR"');
-		_setcookie('user', _authcode($cookieStr, 'ENCODE'));
+		if(empty($_COOKIE[$cookiepre . 'user']))
+			_setcookie('user', _authcode($cookieStr, 'ENCODE'), $cookiepre);
 	}
 
 	function synlogout($get, $post) {
@@ -143,7 +145,7 @@ class uc_note {
 
 		//note 同步登出 API 接口
 		header('P3P: CP="CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR"');
-		_setcookie('Example_auth', '', -86400 * 365);
+		_setcookie('user', '', -86400 * 365);
 	}
 
 	function updatepw($get, $post) {
@@ -265,7 +267,7 @@ class uc_note {
 function _setcookie($var, $value, $life = 0, $prefix = 1) {
 	global $cookiepre, $cookiedomain, $cookiepath, $cookieexpire, $timestamp, $_SERVER;
 	setcookie(($prefix ? $cookiepre : '').$var, $value,
-		$cookieexpire, $cookiepath,
+		$life ? $timestamp + $life : '', $cookiepath,
 		$cookiedomain, $_SERVER['SERVER_PORT'] == 443 ? 1 : 0);
 }
 

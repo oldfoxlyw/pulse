@@ -28,6 +28,7 @@ class Index extends CI_Controller
 	
 	public function index()
 	{
+		var_dump($this->user);
 		$this->load->model('feed');
 		
 		$feedResult = $this->feed->read(array(
