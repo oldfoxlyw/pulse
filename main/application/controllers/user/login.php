@@ -66,7 +66,7 @@ class Login extends CI_Controller
 			);
 			$result = $this->account->read($parameter);
 			
-			if(result === FALSE)
+			if($result === FALSE)
 			{
 				$this->logs->write(array(
 					'log_type'		=>	'USER_INVALID',
@@ -78,13 +78,14 @@ class Login extends CI_Controller
 			else
 			{
 				$row = $result[0];
-				$checkCode = do_hash(do_hash($accountName . '#' . $row->account_pass, 'md5'));
 				$cookie = array(
 					'account_id'		=>		$row->account_id,
 					'account_name'	=>		$accountName,
-					'check_code'		=>		$checkCode
+					'uid'					=>		$row->ucenter_uid
 				);
 				$cookieStr = json_encode($cookie);
+				$this->load->helper('ucenter_sync');
+				$cookieStr = _authcode($cookieStr, 'ENCODE');
 	
 				$this->load->helper('cookie');
 				$cookie = array(
@@ -96,10 +97,13 @@ class Login extends CI_Controller
 						'prefix'		=> $this->config->item('cookie_prefix')
 				);
 				if($cookieRemain=='1') {
-					$cookie['expire'] = $this->config->item('cookie_expire') * 30;
+					$cookie['expire'] = strval(intval($this->config->item('cookie_expire')) * 30);
 				}
 	            $this->input->set_cookie($cookie);
 	            
+	            $this->account->update($row->account_id, array(
+	            	'account_lastlogin'	=>	time()
+	            ));
 				$this->logs->write(array(
 					'log_type'		=>	'USER_LOGIN',
 					'user_name'	=>	$accountName
@@ -111,7 +115,13 @@ class Login extends CI_Controller
 					);
 					echo json_encode($parameter);
 				} else {
-	            	redirect('/user/index');
+					$this->load->library('UcenterSync');
+					$result = $this->ucentersync->syncLogin($row->ucenter_uid);
+					exit($result);
+					
+// 					$redirectUrl = empty($redirectUrl) ? 'user/index' : $redirectUrl;
+// 					$redirect = urlencode(site_url($redirectUrl));
+// 					redirect("/message?type=0&info=USER_LOGIN_ERROR_NO_PARAM&message={$result}&redirect={$redirect}");
 				}
 			}
 		}
@@ -120,6 +130,25 @@ class Login extends CI_Controller
 			$redirect = urlencode($this->rootPath . 'user/login?redirect=' . $redirectUrl);
 			redirect("/message?type=0&info=USER_LOGIN_ERROR_NO_PARAM&redirect={$redirect}&auto_redirect=1&auto_delay=5");
 		}
+	}
+	
+	public function out()
+	{
+		$this->load->helper('cookie');
+		
+		$cookie = array(
+			'name'		=> 'user',
+			'domain'	=> $this->config->item('cookie_domain'),
+			'path'		=> $this->config->item('cookie_path'),
+			'prefix'		=> $this->config->item('cookie_prefix')
+		);
+		delete_cookie($cookie);
+		
+		$this->load->library('UcenterSync');
+		$result = $this->ucentersync->syncLogout();
+		exit($result);
+// 		$redirect = urlencode(site_url('index'));
+// 		redirect("/message?type=1&info=USER_LOGOUT&message={$result}&redirect={$redirect}");
 	}
 }
 ?>

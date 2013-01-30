@@ -36,6 +36,18 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
+/*
+|--------------------------------------------------------------------------
+| UCenter同步user模块
+|--------------------------------------------------------------------------
+*/
+
+define('UC_USER_CHECK_USERNAME_FAILED', -1);
+define('UC_USER_USERNAME_BADWORD', -2);
+define('UC_USER_USERNAME_EXISTS', -3);
+define('UC_USER_EMAIL_FORMAT_ILLEGAL', -4);
+define('UC_USER_EMAIL_ACCESS_ILLEGAL', -5);
+define('UC_USER_EMAIL_EXISTS', -6);
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

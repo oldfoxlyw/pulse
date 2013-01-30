@@ -269,7 +269,7 @@ $config['cookie_prefix']	= "pulse_";
 $config['cookie_domain']	= "";
 $config['cookie_path']		= "/";
 $config['cookie_secure']	= FALSE;
-$config['cookie_expire']	= "86400";
+$config['cookie_expire']	= '86400';
 
 /*
 |--------------------------------------------------------------------------

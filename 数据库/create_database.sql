@@ -77,9 +77,12 @@ CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_account` (
   `account_country` CHAR(32) NOT NULL ,
   `account_city` CHAR(32) NOT NULL ,
   `account_job` CHAR(32) NOT NULL ,
+  `account_regtime` INT NOT NULL ,
   `account_lastlogin` INT NOT NULL ,
+  `ucenter_uid` INT NOT NULL DEFAULT 0 ,
   PRIMARY KEY (`account_id`) ,
-  INDEX `account_name` (`account_name` ASC, `account_pass` ASC) )
+  INDEX `account_name` (`account_name` ASC, `account_pass` ASC) ,
+  INDEX `ucenter_uid` (`ucenter_uid` ASC) )
 ENGINE = InnoDB;
 
 
