@@ -12,12 +12,12 @@ class Check_user extends CI_Model {
 		$this->load->helper('url');
 		$this->load->helper('security');
 		$this->load->helper('cookie');
-		$redirectUrl = urlencode($this->config->item('root_path') . 'user/login?redirect=' . urlencode($this->input->server('REQUEST_URI')));
+		$redirectUrl = 'user/login?redirect=' . urlencode($this->input->server('REQUEST_URI'));
 		$cookieName = $this->config->item('cookie_prefix') . 'user';
 		if(!$this->input->cookie($cookieName, TRUE)) {
 
 			if($redirect)
-				redirect("/message?type=0&info=USER_CHECK_EXPIRED&redirect={$redirectUrl}&auto_redirect=1&auto_delay=5");
+				showMessage(MESSAGE_TYPE_ERROR, 'USER_CHECK_EXPIRED', '', $redirectUrl, true, 5);
 			
 		} else {
 			$cookie = $this->input->cookie($cookieName, TRUE);
@@ -47,7 +47,7 @@ class Check_user extends CI_Model {
 				$this->resetCookie();
 				if($redirect)
 				{
-					redirect("/message?type=0&info=USER_CHECK_INVALID&redirect={$redirectUrl}");
+					showMessage(MESSAGE_TYPE_ERROR, 'USER_CHECK_INVALID', '', $redirectUrl, true, 5);
 				}
 				
 			}

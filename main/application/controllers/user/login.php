@@ -72,8 +72,7 @@ class Login extends CI_Controller
 					'log_type'		=>	'USER_INVALID',
 					'user_name'	=>	$accountName
 				));
-				$redirect = urlencode($this->rootPath . 'user/login?redirect=' . $redirectUrl);
-				redirect("/message?type=0&info=USER_INVALID&redirect={$redirect}");
+				showMessage(MESSAGE_TYPE_ERROR, 'USER_INVALID', '', 'user/login?redirect=' . $redirectUrl, true, 5);
 			}
 			else
 			{
@@ -108,6 +107,7 @@ class Login extends CI_Controller
 					'log_type'		=>	'USER_LOGIN',
 					'user_name'	=>	$accountName
 				));
+				
 				if($isAjaxRequest == '1') {
 					$parameter = array(
 						'message'		=>	'USER_LOGIN',
@@ -115,20 +115,15 @@ class Login extends CI_Controller
 					);
 					echo json_encode($parameter);
 				} else {
-					$this->load->library('UcenterSync');
-					$result = $this->ucentersync->syncLogin($row->ucenter_uid);
-					exit($result);
-					
-// 					$redirectUrl = empty($redirectUrl) ? 'user/index' : $redirectUrl;
-// 					$redirect = urlencode(site_url($redirectUrl));
-// 					redirect("/message?type=0&info=USER_LOGIN_ERROR_NO_PARAM&message={$result}&redirect={$redirect}");
+					$redirectUrl = empty($redirectUrl) ? 'user/index' : $redirectUrl;
+					showSyncLogin($redirectUrl);
+// 					showMessage(MESSAGE_TYPE_SUCCESS, 'USER_LOGIN_SUCCESS', $result, $redirectUrl, true, 5);
 				}
 			}
 		}
 		else
 		{
-			$redirect = urlencode($this->rootPath . 'user/login?redirect=' . $redirectUrl);
-			redirect("/message?type=0&info=USER_LOGIN_ERROR_NO_PARAM&redirect={$redirect}&auto_redirect=1&auto_delay=5");
+			showMessage(MESSAGE_TYPE_ERROR, 'USER_LOGIN_ERROR_NO_PARAM', '', 'user/login?redirect=' . $redirectUrl, true, 5);
 		}
 	}
 	
@@ -144,11 +139,11 @@ class Login extends CI_Controller
 		);
 		delete_cookie($cookie);
 		
-		$this->load->library('UcenterSync');
-		$result = $this->ucentersync->syncLogout();
-		exit($result);
-// 		$redirect = urlencode(site_url('index'));
-// 		redirect("/message?type=1&info=USER_LOGOUT&message={$result}&redirect={$redirect}");
+// 		$this->load->library('UcenterSync');
+// 		$result = $this->ucentersync->syncLogout();
+		
+		showSyncLogout('index');
+// 		showMessage(MESSAGE_TYPE_SUCCESS, 'USER_LOGOUT', $result, 'index', true, 5);
 	}
 }
 ?>
