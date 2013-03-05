@@ -15,7 +15,7 @@ class Index extends CI_Controller
 	
 	private $user;
 	private $rootPath;
-	private $pageName = 'user_index';
+	private $pageName = 'user/index';
 	
 	public function __construct()
 	{
@@ -39,6 +39,41 @@ class Index extends CI_Controller
 				'desc'
 			)
 		), 1);
+		
+		//检查安全等级
+		$securityLevel = 0;
+		if(!empty($this->user->account_email))
+		{
+			$securityLevel += 1;
+		}
+		if(!empty($this->user->account_mobile))
+		{
+			$securityLevel += 1;
+		}
+		
+		//资料完整度
+		$profileLevel = 0;
+		if(!empty($this->user->account_nickname))
+		{
+			$profileLevel += 1;
+		}
+		if(!empty($this->user->account_birthday))
+		{
+			$profileLevel += 1;
+		}
+		if(!empty($this->user->account_country))
+		{
+			$profileLevel += 1;
+		}
+		if(!empty($this->user->account_city))
+		{
+			$profileLevel += 1;
+		}
+		if(!empty($this->user->account_job))
+		{
+			$profileLevel += 1;
+		}
+		$profileLevel = ($profileLevel / 5) * 100;
 	}
 }
 ?>

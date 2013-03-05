@@ -15,7 +15,7 @@ class Change_profile extends CI_Controller
 	
 	private $user;
 	private $rootPath;
-	private $pageName = 'user_change_profile';
+	private $pageName = 'user/change_profile';
 	
 	public function __construct()
 	{

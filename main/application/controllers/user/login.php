@@ -13,7 +13,7 @@ class Login extends CI_Controller
 	 * @version Pulse user/login.php - 1.0.1.20130129 10:08
 	 */
 	private $rootPath;
-	private $pageName = 'user_login';
+	private $pageName = 'user/login';
 	
 	public function __construct()
 	{

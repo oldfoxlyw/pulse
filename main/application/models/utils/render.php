@@ -21,7 +21,7 @@ class Render extends CI_Model
 	{
 		$header = $this->load->view('std_header', $data, true);
 		$top = $this->load->view('std_top', $data, true);
-		$content = $this->load->view("{$pageName}_view", $data, true);
+		$content = $this->load->view("{$pageName}", $data, true);
 		$footer = $this->load->view('std_footer', $data, true);
 		
 		$value = array(
@@ -38,7 +38,7 @@ class Render extends CI_Model
 		$header = $this->load->view('user/std_header', $data, true);
 		$top = $this->load->view('user/std_top', $data, true);
 		$left = $this->load->view('user/std_left', $data, true);
-		$content = $this->load->view("user/{$pageName}_view", $data, true);
+		$content = $this->load->view("{$pageName}", $data, true);
 		$footer = $this->load->view('user/std_footer', $data, true);
 		
 		$value = array(
@@ -56,7 +56,7 @@ class Render extends CI_Model
 		$header = $this->load->view('service/std_header', $data, true);
 		$top = $this->load->view('service/std_top', $data, true);
 		$left = $this->load->view('service/std_left', $data, true);
-		$content = $this->load->view("service/{$pageName}_view", $data, true);
+		$content = $this->load->view("{$pageName}", $data, true);
 		$footer = $this->load->view('service/std_footer', $data, true);
 		
 		$value = array(

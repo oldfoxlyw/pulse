@@ -13,7 +13,7 @@ class Register extends CI_Controller
 	 * @version Pulse user/register.php - 1.0.1.20130129 10:08
 	 */
 	private $rootPath;
-	private $pageName = 'user_register';
+	private $pageName = 'user/register';
 	
 	public function __construct()
 	{
