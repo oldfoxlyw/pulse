@@ -5,12 +5,12 @@ class Bind_email extends CI_Controller
 {
 	/**
 	 * 
-	 * 修改个人资料
+	 * 绑定邮箱
 	 * 
-	 * 提供修改个人资料的逻辑层
+	 * 提供邮箱绑定的逻辑层
 	 * 
 	 * @author johnnyEven
-	 * @version Pulse user/change_profile.php - 1.0.1.20130129 09:50
+	 * @version Pulse user/bind_email.php - 1.0.1.20130305 11:44
 	 */
 	
 	private $user;
@@ -28,12 +28,78 @@ class Bind_email extends CI_Controller
 	
 	public function index()
 	{
-		
+		$this->load->view($this->pageName);
 	}
 	
 	public function submit()
 	{
+		$this->load->library('Guid');
+		$this->load->model('utils/mail');
+		$this->load->model('tools/mail_bind');
+		
 		$accountEmail = $this->input->post('accountEmail', TRUE);
+
+		if(!empty($accountEmail))
+		{
+			$code = md5($this->guid->toString());
+			$parameter = array(
+				'code'					=>	$code,
+				'account_id'			=>	$this->user->account_id,
+				'account_email'		=>	$accountEmail,
+				'expire_time'			=>	time() + 3600
+			);
+			$this->mail_bind->create($parameter);
+			
+			$parameter = array(
+				'template_id'			=>	1,
+				'template_parser'	=>	array(
+					'code'		=>	$code
+				),
+				'mail_list'				=>	array($accountEmail)
+			);
+			if($this->mail->send_email($parameter))
+			{
+				echo 'success';
+			}
+		}
+	}
+	
+	public function confirm()
+	{
+		$this->load->model('tools/mail_bind');
+		$this->load->model('account');
+		
+		$code = $this->input->get('code');
+		
+		if(!empty($code))
+		{
+			$result = $this->mail_bind->read(array(
+				'code'			=>	$code
+			));
+			
+			if($result !== FALSE)
+			{
+				$row = $result[0];
+				if($row->bind_validate == '1')
+				{
+					echo 'already valid';
+					exit();
+				}
+				if(time() <= $row->expire_time)
+				{
+					$parameter = array(
+						'account_email'		=>	$row->account_email
+					);
+					if($this->account->update($row->account_id, $parameter))
+					{
+						$this->mail_bind->update($code, array(
+							'bind_validate'	=>	1
+						));
+						echo 'success';
+					}
+				}
+			}
+		}
 	}
 }
 ?>

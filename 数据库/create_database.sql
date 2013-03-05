@@ -21,6 +21,10 @@ CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_products` (
   `product_status` ENUM('PUBLIC','BETA','HOT') NOT NULL DEFAULT 'PUBLIC' ,
   `product_recommand` TINYINT NOT NULL DEFAULT 1 ,
   `product_sort` INT NOT NULL DEFAULT 0 ,
+  `product_exchange_rate` INT NOT NULL COMMENT '1元人民币能兑换多少游戏币' ,
+  `product_currency_name` CHAR(8) NOT NULL ,
+  `product_server_role` CHAR(64) NOT NULL ,
+  `product_server_recharge` CHAR(64) NOT NULL ,
   PRIMARY KEY (`product_id`) )
 ENGINE = InnoDB
 AUTO_INCREMENT = 1001;
@@ -80,6 +84,7 @@ CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_account` (
   `account_regtime` INT NOT NULL ,
   `account_lastlogin` INT NOT NULL ,
   `ucenter_uid` INT NOT NULL DEFAULT 0 ,
+  `account_recharge` INT NOT NULL DEFAULT 0 COMMENT '累计充值' ,
   PRIMARY KEY (`account_id`) ,
   INDEX `account_name` (`account_name` ASC, `account_pass` ASC) ,
   INDEX `ucenter_uid` (`ucenter_uid` ASC) )
@@ -134,6 +139,69 @@ CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_feed` (
   `feed_time` INT NOT NULL ,
   PRIMARY KEY (`feed_id`) ,
   INDEX `account_id` (`account_id` ASC) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pulse_db_web`.`pulse_mail_template`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pulse_db_web`.`pulse_mail_template` ;
+
+CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_mail_template` (
+  `template_id` INT NOT NULL AUTO_INCREMENT ,
+  `template_name` CHAR(64) NOT NULL ,
+  `template_subject` CHAR(64) NOT NULL ,
+  `template_content` TEXT NOT NULL ,
+  `smtp_host` CHAR(16) NOT NULL ,
+  `smtp_user` CHAR(32) NOT NULL ,
+  `smtp_pass` CHAR(32) NOT NULL ,
+  `smtp_from` VARCHAR(64) NOT NULL ,
+  `smtp_fromName` VARCHAR(64) NOT NULL ,
+  PRIMARY KEY (`template_id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pulse_db_web`.`pulse_mail_bind`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pulse_db_web`.`pulse_mail_bind` ;
+
+CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_mail_bind` (
+  `code` CHAR(32) NOT NULL ,
+  `account_id` BIGINT NOT NULL ,
+  `account_email` CHAR(64) NOT NULL ,
+  `expire_time` INT NOT NULL ,
+  `bind_validate` TINYINT NOT NULL DEFAULT 0 ,
+  PRIMARY KEY (`code`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pulse_db_web`.`pulse_coupon`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pulse_db_web`.`pulse_coupon` ;
+
+CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_coupon` (
+  `coupon_content` CHAR(32) NOT NULL ,
+  `product_id` INT NOT NULL COMMENT '适用于哪个游戏' ,
+  `coupon_type` TINYINT NOT NULL DEFAULT 0 COMMENT '礼券类型\n0=现金礼券\n1=道具礼券' ,
+  `coupon_detail` CHAR(128) NOT NULL COMMENT 'JSON格式\n如果coupon_type=0\ncoupon_detail={value:10}\n\n如果coupon_type=1\ncoupon_detail={[{id:1002, value:1}, {id:1003, value:2}]}' ,
+  `coupon_expire_time` INT NOT NULL ,
+  `coupon_inuse` TINYINT NOT NULL DEFAULT 0 ,
+  PRIMARY KEY (`coupon_content`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pulse_db_web`.`pulse_account_coupon`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pulse_db_web`.`pulse_account_coupon` ;
+
+CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_account_coupon` (
+  `account_id` BIGINT NOT NULL ,
+  `coupon_content` CHAR(32) NOT NULL ,
+  `post_time` INT NOT NULL ,
+  PRIMARY KEY (`account_id`, `coupon_content`) )
 ENGINE = InnoDB;
 
 USE `pulse_db_web` ;
