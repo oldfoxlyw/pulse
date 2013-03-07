@@ -1,6 +1,6 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
-require_once('ICrud.php');
+require_once('application/models/ICrud.php');
 
 class Mcoupon extends CI_Model implements ICrud {
 	private $accountTable = 'pulse_coupon';
@@ -49,7 +49,10 @@ class Mcoupon extends CI_Model implements ICrud {
 		}
 		if(!empty($extension))
 		{
-			
+			if(!empty($extension['where_in']))
+			{
+				$this->db->where_in($extension['where_in']['key'], $extension['where_in']['value']);
+			}
 		}
 		if($limit==0 && $offset==0) {
 			$query = $this->db->get($this->accountTable);

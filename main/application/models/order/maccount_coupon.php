@@ -1,6 +1,6 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
-require_once('ICrud.php');
+require_once('application/models/ICrud.php');
 
 class Maccount_coupon extends CI_Model implements ICrud {
 	private $accountTable = 'pulse_account_coupon';

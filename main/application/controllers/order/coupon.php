@@ -32,9 +32,30 @@ class Coupon extends CI_Controller
 		$this->load->model('order/maccount_coupon');
 		$this->load->model('order/mcoupon');
 		
-		$result = $this->mcoupon->read();
+		$parameter = array(
+			'account_id'		=>	$this->user->account_id
+		);
+		$result = $this->maccount_coupon->read($parameter);
+		if($result !== FALSE)
+		{
+			$whereinArray = array();
+			foreach($result as $value)
+			{
+				array_push($whereinArray, $value->coupon_content);
+			}
+			$extension = array(
+				'where_in'	=>	array(
+					'key'		=>	'coupon_content',
+					'value'	=>	$whereinArray
+				)
+			);
+			$result = $this->mcoupon->read(null, $extension);
+		}
+		$parameter = array(
+			'result'		=>	$result
+		);
 		
-		$this->load->view($this->pageName);
+		$this->load->view($this->pageName, $parameter);
 	}
 	
 	public function confirm()
