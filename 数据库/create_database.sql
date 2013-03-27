@@ -23,8 +23,9 @@ CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_products` (
   `product_sort` INT NOT NULL DEFAULT 0 ,
   `product_exchange_rate` INT NOT NULL COMMENT '1元人民币能兑换多少游戏币' ,
   `product_currency_name` CHAR(8) NOT NULL ,
-  `product_server_role` CHAR(64) NOT NULL ,
-  `product_server_recharge` CHAR(64) NOT NULL ,
+  `product_server_role` CHAR(64) NOT NULL COMMENT '获取角色列表的接口' ,
+  `product_server_recharge` CHAR(64) NOT NULL COMMENT '充值的接口' ,
+  `product_key` CHAR(32) NOT NULL ,
   PRIMARY KEY (`product_id`) )
 ENGINE = InnoDB
 AUTO_INCREMENT = 1001;
@@ -201,8 +202,28 @@ CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_account_coupon` (
   `account_id` BIGINT NOT NULL ,
   `coupon_content` CHAR(32) NOT NULL ,
   `post_time` INT NOT NULL ,
+  `expire_time` INT NOT NULL ,
   PRIMARY KEY (`account_id`, `coupon_content`) )
 ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pulse_db_web`.`pulse_appeal`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pulse_db_web`.`pulse_appeal` ;
+
+CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_appeal` (
+  `appeal_id` BIGINT NOT NULL AUTO_INCREMENT ,
+  `appeal_category` CHAR(16) NOT NULL ,
+  `account_id` BIGINT NOT NULL COMMENT '发布者ID' ,
+  `account_name` CHAR(32) NOT NULL COMMENT '申诉的帐号' ,
+  `appeal_content` TEXT NOT NULL ,
+  `appeal_posttime` INT NOT NULL ,
+  `appeal_reply` TEXT NOT NULL ,
+  `appeal_reply_posttime` INT NOT NULL ,
+  PRIMARY KEY (`appeal_id`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 10020153001;
 
 USE `pulse_db_web` ;
 

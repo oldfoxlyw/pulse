@@ -7,11 +7,11 @@
 
 <body>
 <?php if(!empty($result)): ?>
-<table width="100%" border="1" cellpadding="0" cellspacing="0">
+<table width="80%" border="1" cellpadding="0" cellspacing="0">
 <?php foreach($result as $row): ?>
   <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
+    <td><?php echo $row->coupon_content; ?></td>
+    <td><?php echo $row->product_id; ?></td>
     <td>&nbsp;</td>
   </tr>
 <?php endforeach; ?>

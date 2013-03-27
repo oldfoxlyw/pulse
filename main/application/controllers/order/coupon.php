@@ -61,10 +61,49 @@ class Coupon extends CI_Controller
 	public function confirm()
 	{
 		$this->load->model('order/mcoupon');
+		$this->load->model('product');
 		
+		$coupon = $this->input->get_post('coupon', TRUE);
+		if(!empty($coupon))
+		{
+			$result = $this->mcoupon->read(array(
+				'coupon_content'	=>	$coupon
+			));
+			$coupon = $result[0];
+			$json = json_decode($coupon->coupon_detail);
+			if($coupon->coupon_type == '0')
+			{
+				$rechargeValue = $json->value;
+			}
+			else if($coupon->coupon_type == '1')
+			{
+
+			}
+
+			$productId = $coupon->product_id;
+			$result = $this->product->read(array(
+				'product_id'	=>	$productId
+			));
+			$product = $result[0];
+			$rechargeUrl = $product->product_server_recharge;
+
+			$parameter = array(
+				'account_id'		=>	$this->user->account_id,
+				'recharge_value'	=>	$rechargeValue
+			);
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, $rechargeUrl);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $parameter);
+			$output = curl_exec($ch);
+			curl_close($ch);
+		}
+		$parameter = array(
+			'result'	=>	$output
+		);
 		
-		
-		$this->load->view($this->pageName);
+		$this->load->view($this->confirmName, $parameter);
 	}
 }
 ?>
