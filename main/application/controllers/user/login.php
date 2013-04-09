@@ -62,7 +62,7 @@ class Login extends CI_Controller
 			
 			$parameter = array(
 				'account_name'		=>	$accountName,
-				'account_pass'		=>	do_hash(do_hash($accountPass, 'md5'))
+				'account_pass'		=>	encrypt_pass($accountPass)
 			);
 			$result = $this->account->read($parameter);
 			
