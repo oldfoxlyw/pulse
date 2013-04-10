@@ -20,7 +20,7 @@ class Server extends CI_Controller
 		$this->load->helper('url');
 	}
 
-	public function list($format = 'json')
+	public function lists($format = 'json')
 	{
 		$gameId = $this->input->post('gameId', TRUE);
 
