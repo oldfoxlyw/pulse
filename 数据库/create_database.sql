@@ -43,7 +43,8 @@ CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_serverlist` (
   `server_time_start` INT NOT NULL ,
   `server_status` ENUM('NORMAL','HOT','CLOSE') NOT NULL DEFAULT 'NORMAL' ,
   `server_game_ip` CHAR(16) NOT NULL ,
-  `server_game_port` CHAR(16) NOT NULL ,
+  `server_game_port` CHAR(10) NOT NULL ,
+  `server_service_url` CHAR(64) NOT NULL ,
   PRIMARY KEY (`product_id`, `server_id`) )
 ENGINE = InnoDB;
 
