@@ -33,7 +33,7 @@ class Account extends CI_Controller
 			$this->load->helper('security');
 			
 			$parameter = array(
-				'account_name'		=>	$accountName,
+				'account_name'		=>	$userName,
 				'account_pass'		=>	encrypt_pass($userPass)
 			);
 			$result = $this->maccount->read($parameter);
