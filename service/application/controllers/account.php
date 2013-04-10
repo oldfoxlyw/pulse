@@ -22,8 +22,8 @@ class Account extends CI_Controller
 	
 	public function login($format = 'json')
 	{
-		$userName = $this->input->post('userName', TRUE);
-		$userPass = $this->input->post('userPass', TRUE);
+		$userName = $this->input->get_post('userName', TRUE);
+		$userPass = $this->input->get_post('userPass', TRUE);
 
 
 		if(!empty($userName) && !empty($userPass))
@@ -77,8 +77,8 @@ class Account extends CI_Controller
 
 	public function register($format = 'json')
 	{
-		$userName = $this->input->post('userName', TRUE);
-		$userPass = $this->input->post('userPass', TRUE);
+		$userName = $this->input->get_post('userName', TRUE);
+		$userPass = $this->input->get_post('userPass', TRUE);
 
 
 		if(!empty($userName) && !empty($userPass))
