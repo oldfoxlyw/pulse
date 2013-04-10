@@ -27,7 +27,6 @@ class Server extends CI_Controller
 		if(!empty($gameId))
 		{
 			$this->load->model('mserver');
-/*
 			$result = $this->mserver->read(array(
 				'product_id'	=>	$gameId
 			));
@@ -54,7 +53,6 @@ class Server extends CI_Controller
 
 				array_push($parameter, $item);
 			}
-			*/
 			echo $this->return_format->format($parameter);
 		}
 		else
