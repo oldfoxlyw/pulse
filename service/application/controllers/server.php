@@ -22,7 +22,7 @@ class Server extends CI_Controller
 
 	public function lists($format = 'json')
 	{
-		$gameId = $this->input->post('gameId', TRUE);
+		$gameId = $this->input->get_post('gameId', TRUE);
 
 		if(!empty($gameId))
 		{
@@ -30,7 +30,7 @@ class Server extends CI_Controller
 			$result = $this->mserver->read(array(
 				'product_id'	=>	$gameId
 			));
-
+/*
 			$parameter = array();
 			foreach ($result as $row)
 			{
@@ -54,6 +54,7 @@ class Server extends CI_Controller
 
 				array_push($parameter, $item);
 			}
+			*/
 			echo $this->return_format->format($parameter);
 		}
 		else
