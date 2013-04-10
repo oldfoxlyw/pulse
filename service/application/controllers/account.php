@@ -28,7 +28,7 @@ class Account extends CI_Controller
 
 		if(!empty($userName) && !empty($userPass))
 		{
-			$this->load->model('account', 'maccount');
+			$this->load->model('maccount');
 			$this->load->model('utils/logs');
 			$this->load->helper('security');
 			
@@ -83,7 +83,7 @@ class Account extends CI_Controller
 
 		if(!empty($userName) && !empty($userPass))
 		{
-			$this->load->model('account', 'maccount');
+			$this->load->model('maccount');
 			$this->load->helper('security');
 
 			$result = $this->maccount->read(array(
@@ -127,7 +127,7 @@ class Account extends CI_Controller
 
 		if(!empty($userName))
 		{
-			$this->load->model('account', 'maccount');
+			$this->load->model('maccount');
 			
 			$result = $this->maccount->read(array(
 				'account_name'	=>	$userName
