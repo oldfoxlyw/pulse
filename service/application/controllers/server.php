@@ -26,11 +26,11 @@ class Server extends CI_Controller
 
 		if(!empty($gameId))
 		{
+/*
 			$this->load->model('server', 'mserver');
 			$result = $this->mserver->read(array(
 				'product_id'	=>	$gameId
 			));
-/*
 			$parameter = array();
 			foreach ($result as $row)
 			{
