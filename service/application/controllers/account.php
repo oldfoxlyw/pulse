@@ -34,7 +34,7 @@ class Account extends CI_Controller
 			
 			$parameter = array(
 				'account_name'		=>	$accountName,
-				'account_pass'		=>	encrypt_pass($accountPass)
+				'account_pass'		=>	encrypt_pass($userPass)
 			);
 			$result = $this->maccount->read($parameter);
 			
