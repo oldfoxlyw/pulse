@@ -48,6 +48,7 @@ class Server extends CI_Controller
 					$item['serverStatus'] = 0;
 				}
 				$item['serverServiceUrl'] = $row->server_service_url;
+				$item['serverWebUrl'] = $row->server_web_url;
 				$item['serverGameIp'] = $row->server_game_ip;
 				$item['serverGamePort'] = $row->server_game_port;
 
