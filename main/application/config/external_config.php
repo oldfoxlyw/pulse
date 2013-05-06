@@ -14,5 +14,10 @@ $config['upload_dir'] = 'resources/incoming';
  */
 $config['pagination_per_page'] = 30;
 
+/*
+ * 是否启用UCenter同步
+ */
+$config['enabled_ucenter_sync'] = false;
+
 $config['mail_filter'] = "/@(apple.com|microsoft.com|google.com)/i";
 ?>

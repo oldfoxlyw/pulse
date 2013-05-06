@@ -69,7 +69,7 @@ class Login extends CI_Controller
 			if($result === FALSE)
 			{
 				$this->logs->write(array(
-					'log_type'		=>	'USER_INVALID',
+					'log_type'	=>	'USER_INVALID',
 					'user_name'	=>	$accountName
 				));
 				showMessage(MESSAGE_TYPE_ERROR, 'USER_INVALID', '', 'user/login?redirect=' . $redirectUrl, true, 5);
@@ -78,9 +78,9 @@ class Login extends CI_Controller
 			{
 				$row = $result[0];
 				$cookie = array(
-					'account_id'		=>		$row->account_id,
+					'account_id'	=>		$row->account_id,
 					'account_name'	=>		$accountName,
-					'uid'					=>		$row->ucenter_uid
+					'uid'			=>		$row->ucenter_uid
 				);
 				$cookieStr = json_encode($cookie);
 				$this->load->helper('ucenter_sync');
@@ -90,10 +90,10 @@ class Login extends CI_Controller
 				$cookie = array(
 						'name'		=> 'user',
 						'value'		=> $cookieStr,
-						'expire'		=> $this->config->item('cookie_expire'),
+						'expire'	=> $this->config->item('cookie_expire'),
 						'domain'	=> $this->config->item('cookie_domain'),
 						'path'		=> $this->config->item('cookie_path'),
-						'prefix'		=> $this->config->item('cookie_prefix')
+						'prefix'	=> $this->config->item('cookie_prefix')
 				);
 				if($cookieRemain=='1') {
 					$cookie['expire'] = strval(intval($this->config->item('cookie_expire')) * 30);
@@ -135,7 +135,7 @@ class Login extends CI_Controller
 			'name'		=> 'user',
 			'domain'	=> $this->config->item('cookie_domain'),
 			'path'		=> $this->config->item('cookie_path'),
-			'prefix'		=> $this->config->item('cookie_prefix')
+			'prefix'	=> $this->config->item('cookie_prefix')
 		);
 		delete_cookie($cookie);
 		
