@@ -227,6 +227,20 @@ CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_appeal` (
 ENGINE = InnoDB
 AUTO_INCREMENT = 10020153001;
 
+
+-- -----------------------------------------------------
+-- Table `pulse_db_web`.`pulse_server_log`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pulse_db_web`.`pulse_server_log` ;
+
+CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_server_log` (
+  `product_id` INT NOT NULL ,
+  `account_id` BIGINT NOT NULL ,
+  `server_id` INT NOT NULL ,
+  `updatetime` INT NOT NULL ,
+  PRIMARY KEY (`product_id`, `account_id`) )
+ENGINE = InnoDB;
+
 USE `pulse_db_web` ;
 
 

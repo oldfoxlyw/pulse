@@ -22,6 +22,7 @@ class Server extends CI_Controller
 
 	public function lists($format = 'json')
 	{
+		$accountId = $this->input->post('accountId', TRUE);
 		$gameId = $this->input->post('gameId', TRUE);
 
 		if(!empty($gameId))
@@ -30,10 +31,28 @@ class Server extends CI_Controller
 			$result = $this->mserver->read(array(
 				'product_id'	=>	$gameId
 			));
+
+			if(!empty($accountId))
+			{
+				$this->load->model('mserverlog');
+				$parameter = array(
+					'product_id'	=>	$gameId,
+					'account_id'	=>	$accountId
+				);
+				$logResult = $this->mserverlog->read($parameter);
+				if($logResult !== FALSE)
+				{
+					$lastServerId = $logResult[0]->server_id;
+				}
+			}
 			$parameter = array();
 			foreach ($result as $row)
 			{
 				$item['serverId'] = $row->server_id;
+				if($lastServerId == $item['serverId'])
+				{
+					$item['lastLogin'] = 1;
+				}
 				$item['serverName'] = $row->server_name;
 				if($row->server_status == 'NORMAL')
 				{
@@ -62,6 +81,44 @@ class Server extends CI_Controller
 				'errors'	=>	'SERVER_LIST_ERROR_NO_PARAM'
 			);
 			echo $this->return_format->format($parameter);
+		}
+	}
+
+	public function log($format = 'json')
+	{
+		$this->load->model('mserverlog');
+
+		$accountId = $this->input->post('accountId', TRUE);
+		$productId = $this->input->post('gameId', TRUE);
+		$serverId = $this->input->post('serverId', TRUE);
+
+		$parameter = array(
+			'product_id'	=>	$productId,
+			'account_id'	=>	$accountId
+		);
+		$result = $this->mserverlog->read($parameter);
+
+		if($result === FALSE)
+		{
+			$parameter = array(
+				'product_id'	=>	$productId,
+				'account_id'	=>	$accountId,
+				'server_id'		=>	$serverId,
+				'updatetime'	=>	time()
+			);
+			$this->mserverlog->create($parameter);
+		}
+		else
+		{
+			$id = array(
+				'product_id'	=>	$productId,
+				'account_id'	=>	$accountId
+			);
+			$parameter = array(
+				'server_id'		=>	$serverId,
+				'updatetime'	=>	time()
+			);
+			$this->mserverlog->update($id, $parameter);
 		}
 	}
 }
