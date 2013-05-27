@@ -241,6 +241,20 @@ CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_server_log` (
   PRIMARY KEY (`product_id`, `account_id`) )
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `pulse_db_web`.`pulse_role_count`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pulse_db_web`.`pulse_role_count` ;
+
+CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_role_count` (
+  `product_id` INT NOT NULL ,
+  `account_id` BIGINT NOT NULL ,
+  `server_id` INT NOT NULL ,
+  `count` INT NOT NULL ,
+  PRIMARY KEY (`product_id`, `account_id`, `server_id`) )
+ENGINE = InnoDB;
+
 USE `pulse_db_web` ;
 
 

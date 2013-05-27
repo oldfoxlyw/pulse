@@ -44,6 +44,21 @@ class Server extends CI_Controller
 				{
 					$lastServerId = $logResult[0]->server_id;
 				}
+
+				$this->load->model('mrolecount');
+				$parameter = array(
+					'product_id'	=>	$gameId,
+					'account_id'	=>	$accountId
+				);
+				$countResult = $this->mrolecount->read($parameter);
+				$roleCount = array();
+				if($countResult !== FALSE)
+				{
+					foreach ($countResult as $countRow)
+					{
+						$roleCount[$countRow->server_id] = $countRow->count;
+					}
+				}
 			}
 			$parameter = array();
 			foreach ($result as $row)
@@ -52,6 +67,10 @@ class Server extends CI_Controller
 				if($lastServerId == $item['serverId'])
 				{
 					$item['lastLogin'] = 1;
+				}
+				if(!empty($roleCount[$item['serverId']]))
+				{
+					$item['roleCount'] = $roleCount[$item['serverId']];
 				}
 				$item['serverName'] = $row->server_name;
 				if($row->server_status == 'NORMAL')
