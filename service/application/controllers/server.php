@@ -86,39 +86,42 @@ class Server extends CI_Controller
 
 	public function log($format = 'json')
 	{
-		$this->load->model('mserverlog');
-
 		$accountId = $this->input->post('accountId', TRUE);
 		$productId = $this->input->post('gameId', TRUE);
 		$serverId = $this->input->post('serverId', TRUE);
 
-		$parameter = array(
-			'product_id'	=>	$productId,
-			'account_id'	=>	$accountId
-		);
-		$result = $this->mserverlog->read($parameter);
+		if(!empty($accountId) && !empty($productId) && !empty($serverId))
+		{
+			$this->load->model('mserverlog');
 
-		if($result === FALSE)
-		{
 			$parameter = array(
-				'product_id'	=>	$productId,
-				'account_id'	=>	$accountId,
-				'server_id'		=>	$serverId,
-				'updatetime'	=>	time()
-			);
-			$this->mserverlog->create($parameter);
-		}
-		else
-		{
-			$id = array(
 				'product_id'	=>	$productId,
 				'account_id'	=>	$accountId
 			);
-			$parameter = array(
-				'server_id'		=>	$serverId,
-				'updatetime'	=>	time()
-			);
-			$this->mserverlog->update($id, $parameter);
+			$result = $this->mserverlog->read($parameter);
+
+			if($result === FALSE)
+			{
+				$parameter = array(
+					'product_id'	=>	$productId,
+					'account_id'	=>	$accountId,
+					'server_id'		=>	$serverId,
+					'updatetime'	=>	time()
+				);
+				$this->mserverlog->create($parameter);
+			}
+			else
+			{
+				$id = array(
+					'product_id'	=>	$productId,
+					'account_id'	=>	$accountId
+				);
+				$parameter = array(
+					'server_id'		=>	$serverId,
+					'updatetime'	=>	time()
+				);
+				$this->mserverlog->update($id, $parameter);
+			}
 		}
 	}
 }
