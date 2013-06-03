@@ -63,8 +63,9 @@ class Server extends CI_Controller
 			$parameter = array();
 			foreach ($result as $row)
 			{
+				$item = array();
 				$item['serverId'] = $row->server_id;
-				if($lastServerId == $item['serverId'])
+				if($lastServerId == $row->server_id)
 				{
 					$item['lastLogin'] = 1;
 				}
