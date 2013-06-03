@@ -106,9 +106,9 @@ class Server extends CI_Controller
 
 	public function log($format = 'json')
 	{
-		$accountId = $this->input->post('accountId', TRUE);
-		$productId = $this->input->post('gameId', TRUE);
-		$serverId = $this->input->post('serverId', TRUE);
+		$accountId = $this->input->get_post('accountId', TRUE);
+		$productId = $this->input->get_post('gameId', TRUE);
+		$serverId = $this->input->get_post('serverId', TRUE);
 
 		if(!empty($accountId) && !empty($productId) && !empty($serverId))
 		{
