@@ -99,7 +99,7 @@ class Server extends CI_Controller
 			{
 				$updatetime = $logResult[$i]->updatetime;
 				$logResult[$i] = $parameter[$logResult[$i]->server_id];
-				$logResult[$i]->updatetime = $updatetime;
+				$logResult[$i]['updatetime'] = $updatetime;
 			}
 			$parameter['history'] = $logResult;
 			echo $this->return_format->format($parameter);
