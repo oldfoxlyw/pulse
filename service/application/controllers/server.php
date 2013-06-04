@@ -39,11 +39,13 @@ class Server extends CI_Controller
 					'product_id'	=>	$gameId,
 					'account_id'	=>	$accountId
 				);
-				$logResult = $this->mserverlog->read($parameter);
-				if($logResult !== FALSE)
-				{
-					$lastServerId = $logResult[0]->server_id;
-				}
+				$extension = array(
+					'orderby'		=>	array(
+						'updatetime',
+						'desc'
+					)
+				);
+				$logResult = $this->mserverlog->read($parameter, $extension, 5);
 
 				$this->load->model('mrolecount');
 				$parameter = array(
@@ -65,10 +67,6 @@ class Server extends CI_Controller
 			{
 				$item = array();
 				$item['serverId'] = $row->server_id;
-				if($lastServerId == $row->server_id)
-				{
-					$item['lastLogin'] = 1;
-				}
 				if(!empty($roleCount[$item['serverId']]))
 				{
 					$item['roleCount'] = $roleCount[$item['serverId']];
@@ -93,6 +91,7 @@ class Server extends CI_Controller
 
 				array_push($parameter, $item);
 			}
+			$parameter['history'] = $logResult;
 			echo $this->return_format->format($parameter);
 		}
 		else
@@ -113,35 +112,13 @@ class Server extends CI_Controller
 		if(!empty($accountId) && !empty($productId) && !empty($serverId))
 		{
 			$this->load->model('mserverlog');
-
 			$parameter = array(
 				'product_id'	=>	$productId,
-				'account_id'	=>	$accountId
+				'account_id'	=>	$accountId,
+				'server_id'		=>	$serverId,
+				'updatetime'	=>	time()
 			);
-			$result = $this->mserverlog->read($parameter);
-
-			if($result === FALSE)
-			{
-				$parameter = array(
-					'product_id'	=>	$productId,
-					'account_id'	=>	$accountId,
-					'server_id'		=>	$serverId,
-					'updatetime'	=>	time()
-				);
-				$this->mserverlog->create($parameter);
-			}
-			else
-			{
-				$id = array(
-					'product_id'	=>	$productId,
-					'account_id'	=>	$accountId
-				);
-				$parameter = array(
-					'server_id'		=>	$serverId,
-					'updatetime'	=>	time()
-				);
-				$this->mserverlog->update($id, $parameter);
-			}
+			$this->mserverlog->create($parameter);
 		}
 	}
 }
