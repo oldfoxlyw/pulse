@@ -40,6 +40,10 @@ class Server extends CI_Controller
 					'account_id'	=>	$accountId
 				);
 				$extension = array(
+					'select'		=>	array(
+						'server_id',
+						'updatetime'
+					),
 					'orderby'		=>	array(
 						'updatetime',
 						'desc'
@@ -89,7 +93,13 @@ class Server extends CI_Controller
 				$item['serverGameIp'] = $row->server_game_ip;
 				$item['serverGamePort'] = $row->server_game_port;
 
-				array_push($parameter, $item);
+				$parameter[$row->server_id] = $item;
+			}
+			for($i = 0; $i < count($logResult); $i++)
+			{
+				$updatetime = $logResult[$i]->updatetime;
+				$logResult[$i] = $parameter[$logResult[$i]->server_id];
+				$logResult[$i]->updatetime = $updatetime;
 			}
 			$parameter['history'] = $logResult;
 			echo $this->return_format->format($parameter);

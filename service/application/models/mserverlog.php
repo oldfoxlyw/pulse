@@ -49,6 +49,10 @@ class Mserverlog extends CI_Model implements ICrud {
 		}
 		if(!empty($extension))
 		{
+			if(!empty($extension['select']))
+			{
+				$this->db->select($extension['select']);
+			}
 			if(!empty($extension['orderby']))
 			{
 				$this->db->order_by($extension['orderby'][0], $extension['orderby'][1]);
