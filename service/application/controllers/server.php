@@ -22,8 +22,8 @@ class Server extends CI_Controller
 
 	public function lists($format = 'json')
 	{
-		$accountId = $this->input->post('accountId', TRUE);
-		$gameId = $this->input->post('gameId', TRUE);
+		$accountId = $this->input->get_post('accountId', TRUE);
+		$gameId = $this->input->get_post('gameId', TRUE);
 
 		if(!empty($gameId))
 		{
