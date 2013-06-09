@@ -72,18 +72,10 @@ class Mserverlog extends CI_Model implements ICrud {
 	
 	public function update($id, $row)
 	{
-		if(is_array($id))
+		if(!empty($id))
 		{
-			if(!empty($id['product_id']) && !empty($id['account_id']) && !empty($row))
-			{
-				$this->db->where('product_id', $id['product_id']);
-				$this->db->where('account_id', $id['account_id']);
-				return $this->db->update($this->serverTable, $row);
-			}
-			else
-			{
-				return false;
-			}
+			$this->db->where('id', $id);
+			return $this->db->update($this->serverTable, $row);
 		}
 		else
 		{

@@ -10,7 +10,6 @@ class Server extends CI_Controller
 	 * @author johnnyEven
 	 * @version Pulse/service server.php - 1.0.1.20130409 10:52
 	 */
-	
 	private $rootPath;
 	
 	public function __construct()
@@ -40,11 +39,17 @@ class Server extends CI_Controller
 					'product_id'	=>	$gameId,
 					'account_id'	=>	$accountId
 				);
-				$logResult = $this->mserverlog->read($parameter);
-				if($logResult !== FALSE)
-				{
-					$lastServerId = $logResult[0]->server_id;
-				}
+				$extension = array(
+					'select'		=>	array(
+						'server_id',
+						'updatetime'
+					),
+					'orderby'		=>	array(
+						'updatetime',
+						'desc'
+					)
+				);
+				$logResult = $this->mserverlog->read($parameter, $extension, 5);
 
 				$this->load->model('mrolecount');
 				$parameter = array(
@@ -66,10 +71,6 @@ class Server extends CI_Controller
 			{
 				$item = array();
 				$item['serverId'] = $row->server_id;
-				if($lastServerId == $row->server_id)
-				{
-					$item['lastLogin'] = 1;
-				}
 				if(!empty($roleCount[$item['serverId']]))
 				{
 					$item['roleCount'] = $roleCount[$item['serverId']];
@@ -92,8 +93,15 @@ class Server extends CI_Controller
 				$item['serverGameIp'] = $row->server_game_ip;
 				$item['serverGamePort'] = $row->server_game_port;
 
-				array_push($parameter, $item);
+				$parameter[$row->server_id] = $item;
 			}
+			for($i = 0; $i < count($logResult); $i++)
+			{
+				$updatetime = $logResult[$i]->updatetime;
+				$logResult[$i] = $parameter[$logResult[$i]->server_id];
+				$logResult[$i]['updatetime'] = $updatetime;
+			}
+			$parameter['history'] = $logResult;
 			echo $this->return_format->format($parameter);
 		}
 		else
@@ -114,14 +122,20 @@ class Server extends CI_Controller
 		if(!empty($accountId) && !empty($productId) && !empty($serverId))
 		{
 			$this->load->model('mserverlog');
-
 			$parameter = array(
 				'product_id'	=>	$productId,
-				'account_id'	=>	$accountId
+				'account_id'	=>	$accountId,
+				'server_id'		=>	$serverId
 			);
 			$result = $this->mserverlog->read($parameter);
-
-			if($result === FALSE)
+			if($result !== FALSE)
+			{
+				$parameter = array(
+					'updatetime'	=>	time()
+				);
+				$this->mserverlog->update($result[0]->id, $parameter);
+			}
+			else
 			{
 				$parameter = array(
 					'product_id'	=>	$productId,
@@ -130,18 +144,6 @@ class Server extends CI_Controller
 					'updatetime'	=>	time()
 				);
 				$this->mserverlog->create($parameter);
-			}
-			else
-			{
-				$id = array(
-					'product_id'	=>	$productId,
-					'account_id'	=>	$accountId
-				);
-				$parameter = array(
-					'server_id'		=>	$serverId,
-					'updatetime'	=>	time()
-				);
-				$this->mserverlog->update($id, $parameter);
 			}
 		}
 	}
