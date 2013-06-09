@@ -59,6 +59,7 @@ class Account extends CI_Controller
 				// 	'log_type'		=>	'USER_LOGIN',
 				// 	'user_name'	=>	$accountName
 				// ));
+				//ACCOUNT_LOGIN_ERROR_FREEZED
 				$parameter = array(
 					'message'		=>	'ACCOUNT_LOGIN_SUCCESS',
 					'accountId'		=>	$row->account_id
