@@ -95,11 +95,18 @@ class Server extends CI_Controller
 
 				$parameter[$row->server_id] = $item;
 			}
-			for($i = 0; $i < count($logResult); $i++)
+			if($logResult !== FALSE)
 			{
-				$updatetime = $logResult[$i]->updatetime;
-				$logResult[$i] = $parameter[$logResult[$i]->server_id];
-				$logResult[$i]['updatetime'] = $updatetime;
+				for($i = 0; $i < count($logResult); $i++)
+				{
+					$updatetime = $logResult[$i]->updatetime;
+					$logResult[$i] = $parameter[$logResult[$i]->server_id];
+					$logResult[$i]['updatetime'] = $updatetime;
+				}
+			}
+			else
+			{
+				$logResult = array();
 			}
 			$parameter['history'] = $logResult;
 			echo $this->return_format->format($parameter);
