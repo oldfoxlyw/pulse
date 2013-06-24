@@ -87,7 +87,9 @@ CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_account` (
   `account_regtime` INT NOT NULL ,
   `account_lastlogin` INT NOT NULL ,
   `ucenter_uid` INT NOT NULL DEFAULT 0 ,
+  `account_cash` INT NOT NULL DEFAULT 0 COMMENT '剩余平台币' ,
   `account_recharge` INT NOT NULL DEFAULT 0 COMMENT '累计充值' ,
+  `account_fromwhere` INT NOT NULL DEFAULT 0 ,
   PRIMARY KEY (`account_id`) ,
   INDEX `account_name` (`account_name` ASC, `account_pass` ASC) ,
   INDEX `ucenter_uid` (`ucenter_uid` ASC) )
@@ -253,6 +255,39 @@ CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_role_count` (
   `server_id` INT NOT NULL ,
   `count` INT NOT NULL ,
   PRIMARY KEY (`product_id`, `account_id`, `server_id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pulse_db_web`.`pulse_order`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pulse_db_web`.`pulse_order` ;
+
+CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_order` (
+  `order_id` BIGINT NOT NULL AUTO_INCREMENT ,
+  `account_id` BIGINT NOT NULL ,
+  `order_cash` INT NOT NULL COMMENT '以分为单位' ,
+  `account_cash` INT NOT NULL COMMENT '累计充值金额' ,
+  `account_fromwhere` INT NOT NULL ,
+  `order_type` INT NOT NULL DEFAULT 1 COMMENT '充值渠道：1=paypal' ,
+  `order_time` INT NOT NULL ,
+  PRIMARY KEY (`order_id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pulse_db_web`.`pulse_order_game`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pulse_db_web`.`pulse_order_game` ;
+
+CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_order_game` (
+  `order_id` BIGINT NOT NULL AUTO_INCREMENT ,
+  `account_id` BIGINT NOT NULL ,
+  `product_id` INT NOT NULL ,
+  `order_cash` INT NOT NULL ,
+  `account_cash` INT NOT NULL COMMENT '剩余平台币' ,
+  `order_time` INT NOT NULL ,
+  PRIMARY KEY (`order_id`) )
 ENGINE = InnoDB;
 
 USE `pulse_db_web` ;

@@ -2,8 +2,8 @@
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 require_once('ICrud.php');
 
-class Feed extends CI_Model implements ICrud {
-	private $feedTable = 'pulse_feed';
+class Mserverlog extends CI_Model implements ICrud {
+	private $serverTable = 'pulse_server_log';
 	
 	public function __construct()
 	{
@@ -23,14 +23,14 @@ class Feed extends CI_Model implements ICrud {
 		{
 			
 		}
-		return $this->db->count_all_results($this->feedTable);
+		return $this->db->count_all_results($this->serverTable);
 	}
 	
 	public function create($row)
 	{
 		if(!empty($row))
 		{
-			return $this->db->insert($this->feedTable, $row);
+			return $this->db->insert($this->serverTable, $row);
 		}
 		else
 		{
@@ -49,15 +49,19 @@ class Feed extends CI_Model implements ICrud {
 		}
 		if(!empty($extension))
 		{
+			if(!empty($extension['select']))
+			{
+				$this->db->select($extension['select']);
+			}
 			if(!empty($extension['orderby']))
 			{
 				$this->db->order_by($extension['orderby'][0], $extension['orderby'][1]);
 			}
 		}
 		if($limit==0 && $offset==0) {
-			$query = $this->db->get($this->feedTable);
+			$query = $this->db->get($this->serverTable);
 		} else {
-			$query = $this->db->get($this->feedTable, $limit, $offset);
+			$query = $this->db->get($this->serverTable, $limit, $offset);
 		}
 		if($query->num_rows() > 0) {
 			return $query->result();
@@ -68,10 +72,10 @@ class Feed extends CI_Model implements ICrud {
 	
 	public function update($id, $row)
 	{
-		if(!empty($id) && !empty($row))
+		if(!empty($id))
 		{
-			$this->db->where('feed_id', $id);
-			return $this->db->update($this->feedTable, $row);
+			$this->db->where('id', $id);
+			return $this->db->update($this->serverTable, $row);
 		}
 		else
 		{
@@ -81,10 +85,18 @@ class Feed extends CI_Model implements ICrud {
 	
 	public function delete($id)
 	{
-		if(!empty($id))
+		if(is_array($id))
 		{
-			$this->db->where('feed_id', $id);
-			return $this->db->delete($this->feedTable);
+			if(!empty($id['product_id']) && !empty($id['account_id']))
+			{
+				$this->db->where('product_id', $id['product_id']);
+				$this->db->where('account_id', $id['account_id']);
+				return $this->db->delete($this->serverTable);
+			}
+			else
+			{
+				return false;
+			}
 		}
 		else
 		{
