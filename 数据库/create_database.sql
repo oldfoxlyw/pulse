@@ -290,6 +290,21 @@ CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_order_game` (
   PRIMARY KEY (`order_id`) )
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `pulse_db_web`.`pulse_screenshot`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pulse_db_web`.`pulse_screenshot` ;
+
+CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_screenshot` (
+  `screenshot_id` INT NOT NULL AUTO_INCREMENT ,
+  `product_id` INT NOT NULL ,
+  `screenshot_title` CHAR(64) NOT NULL ,
+  `screenshot_content` TEXT NOT NULL ,
+  `screenshot_posttime` INT NOT NULL ,
+  PRIMARY KEY (`screenshot_id`) )
+ENGINE = InnoDB;
+
 USE `pulse_db_web` ;
 
 

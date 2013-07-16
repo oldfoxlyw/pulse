@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteBase /pulse/ss2/
+RewriteCond $1 !^(index\.php|resources|robot\.txt)
+RewriteRule ^(.*)$ index.php/$1 [L]
