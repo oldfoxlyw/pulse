@@ -33,36 +33,36 @@
 | 				 can make your site vulnerable to SQL injection if you are using a
 | 				 multi-byte character set and are running versions lower than these.
 | 				 Sites using Latin-1 or UTF-8 database character set and collation are unaffected.
-|	['swap_pre'] A webdb table prefix that should be swapped with the dbprefix
+|	['swap_pre'] A default table prefix that should be swapped with the dbprefix
 |	['autoinit'] Whether or not to automatically initialize the database.
 |	['stricton'] TRUE/FALSE - forces 'Strict Mode' connections
 |							- good for ensuring strict SQL while developing
 |
 | The $active_group variable lets you choose which connection group to
-| make active.  By webdb there is only one group (the 'webdb' group).
+| make active.  By default there is only one group (the 'default' group).
 |
 | The $active_record variables lets you determine whether or not to load
 | the active record class
 */
 
-$active_group = 'webdb';
+$active_group = 'default';
 $active_record = TRUE;
 
-$db['webdb']['hostname'] = 'localhost';
-$db['webdb']['username'] = 'root';
-$db['webdb']['password'] = '84@41%%wi96^4';
-$db['webdb']['database'] = 'pulse_db_web';
-$db['webdb']['dbdriver'] = 'mysqli';
-$db['webdb']['dbprefix'] = '';
-$db['webdb']['pconnect'] = FALSE;
-$db['webdb']['db_debug'] = TRUE;
-$db['webdb']['cache_on'] = FALSE;
-$db['webdb']['cachedir'] = '';
-$db['webdb']['char_set'] = 'utf8';
-$db['webdb']['dbcollat'] = 'utf8_general_ci';
-$db['webdb']['swap_pre'] = '';
-$db['webdb']['autoinit'] = TRUE;
-$db['webdb']['stricton'] = FALSE;
+$db['default']['hostname'] = 'localhost';
+$db['default']['username'] = 'root';
+$db['default']['password'] = '84@41%%wi96^4';
+$db['default']['database'] = 'pulse_db_web';
+$db['default']['dbdriver'] = 'mysqli';
+$db['default']['dbprefix'] = '';
+$db['default']['pconnect'] = FALSE;
+$db['default']['db_debug'] = TRUE;
+$db['default']['cache_on'] = FALSE;
+$db['default']['cachedir'] = '';
+$db['default']['char_set'] = 'utf8';
+$db['default']['dbcollat'] = 'utf8_general_ci';
+$db['default']['swap_pre'] = '';
+$db['default']['autoinit'] = TRUE;
+$db['default']['stricton'] = FALSE;
 
 
 /* End of file database.php */

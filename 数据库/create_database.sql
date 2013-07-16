@@ -305,9 +305,69 @@ CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_screenshot` (
   PRIMARY KEY (`screenshot_id`) )
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `pulse_db_web`.`pulse_admin`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pulse_db_web`.`pulse_admin` ;
+
+CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_admin` (
+  `admin_id` INT NOT NULL AUTO_INCREMENT ,
+  `admin_name` CHAR(32) NOT NULL ,
+  `admin_pass` CHAR(64) NOT NULL ,
+  `admin_regtime` INT NOT NULL ,
+  `admin_lastlogin` INT NOT NULL DEFAULT 0 ,
+  `admin_level` INT NOT NULL DEFAULT 10 ,
+  `role_id` INT NOT NULL ,
+  `role_name` CHAR(16) NOT NULL ,
+  `custom_permission` TEXT NOT NULL ,
+  PRIMARY KEY (`admin_id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pulse_db_web`.`pulse_admin_role`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pulse_db_web`.`pulse_admin_role` ;
+
+CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_admin_role` (
+  `role_id` INT NOT NULL AUTO_INCREMENT ,
+  `role_name` CHAR(16) NOT NULL ,
+  `role_level` INT NOT NULL DEFAULT 10 ,
+  `role_permission` TEXT NOT NULL ,
+  PRIMARY KEY (`role_id`) )
+ENGINE = InnoDB;
+
 USE `pulse_db_web` ;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `pulse_db_web`.`pulse_products`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `pulse_db_web`;
+INSERT INTO `pulse_db_web`.`pulse_products` (`product_id`, `product_name`, `product_category`, `product_comment`, `product_url_website`, `product_url_entry`, `product_status`, `product_recommand`, `product_sort`, `product_exchange_rate`, `product_currency_name`, `product_server_role`, `product_server_recharge`, `product_key`) VALUES (1001, '星际移民2.0', 'ARPG科幻页游', '星际移民', 'http://localhost:8080/pulse/ss2', 'http://localhost:8080/pulse/ss2/entry', 'PUBLIC', 1, 0, 1, '暗能水晶', '', '', '');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `pulse_db_web`.`pulse_admin`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `pulse_db_web`;
+INSERT INTO `pulse_db_web`.`pulse_admin` (`admin_id`, `admin_name`, `admin_pass`, `admin_regtime`, `admin_lastlogin`, `admin_level`, `role_id`, `role_name`, `custom_permission`) VALUES (1, 'johnnyeven', 'b40714d351a35e8f0d2f15ee977da4a9f5a7e2cd', 0, 0, 9999, 1, '创建者', 'all');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `pulse_db_web`.`pulse_admin_role`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `pulse_db_web`;
+INSERT INTO `pulse_db_web`.`pulse_admin_role` (`role_id`, `role_name`, `role_level`, `role_permission`) VALUES (1, '创建者', 9999, 'all');
+
+COMMIT;
