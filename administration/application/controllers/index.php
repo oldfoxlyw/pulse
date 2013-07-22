@@ -14,9 +14,22 @@ class Index extends \CI_Controller
 	
 	public function index()
 	{
+		$this->load->model('maccount');
+		$this->load->model('mappeal');
+		$this->load->model('morder');
+		
+		$accountCount = $this->maccount->count();
+		$appealCount = $this->mappeal->count(array(
+			'appeal_status'		=>	0
+		));
+		$orderCount = $this->morder->count();
+		
 		$data = array(
-			'admin'				=>	$this->user,
-			'page_name'		=>	$this->pageName,
+			'admin'					=>	$this->user,
+			'page_name'			=>	$this->pageName,
+			'account_count'	=>	$accountCount,
+			'appeal_count'		=>	$appealCount,
+			'order_count'		=>	$orderCount
 		);
 		$this->render->render('index', $data);
 	}
