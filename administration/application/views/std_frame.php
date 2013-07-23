@@ -20,8 +20,6 @@
 	</div> <!-- /container -->
 </div> <!-- /content -->
 <?php echo $std_footer; ?>
-<script src="<?php echo base_url('resources/js/jquery-1.7.2.min.js'); ?>"></script>
-<script src="<?php echo base_url('resources/js/bootstrap.js'); ?>"></script>
 <!--
 <script src="<?php echo base_url('resources/js/excanvas.min.js'); ?>"></script>
 <script src="<?php echo base_url('resources/js/jquery.flot.js'); ?>"></script>

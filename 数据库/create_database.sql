@@ -59,6 +59,7 @@ CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_news` (
   `news_id` INT NOT NULL AUTO_INCREMENT ,
   `news_title` CHAR(64) NOT NULL ,
   `product_id` INT NOT NULL ,
+  `product_name` CHAR(16) NOT NULL ,
   `news_category` CHAR(16) NOT NULL ,
   `news_content` MEDIUMTEXT NOT NULL ,
   `news_posttime` INT NOT NULL ,
@@ -225,6 +226,7 @@ CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_appeal` (
   `appeal_posttime` INT NOT NULL ,
   `appeal_reply` TEXT NOT NULL ,
   `appeal_reply_posttime` INT NOT NULL ,
+  `appeal_status` TINYINT NOT NULL DEFAULT 0 ,
   PRIMARY KEY (`appeal_id`) )
 ENGINE = InnoDB
 AUTO_INCREMENT = 10020153001;
