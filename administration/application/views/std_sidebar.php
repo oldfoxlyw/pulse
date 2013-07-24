@@ -30,7 +30,7 @@
 						</a>
 					</li>
 					<li<?php if($page_name=='screenshot'): ?> class="active"<?php endif; ?>>
-						<a href="<?php echo site_url('screenshot'); ?>">
+						<a href="<?php echo site_url('screenshot/lists'); ?>">
 							<i class="icon-th-large"></i>
 							截图管理
 						</a>

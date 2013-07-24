@@ -301,9 +301,11 @@ DROP TABLE IF EXISTS `pulse_db_web`.`pulse_screenshot` ;
 CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_screenshot` (
   `screenshot_id` INT NOT NULL AUTO_INCREMENT ,
   `product_id` INT NOT NULL ,
+  `product_name` CHAR(16) NOT NULL ,
   `screenshot_title` CHAR(64) NOT NULL ,
   `screenshot_content` TEXT NOT NULL ,
   `screenshot_posttime` INT NOT NULL ,
+  `screenshot_pic_url` TEXT NOT NULL ,
   PRIMARY KEY (`screenshot_id`) )
 ENGINE = InnoDB;
 
