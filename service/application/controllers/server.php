@@ -25,16 +25,18 @@ class Server extends CI_Controller
 		$accountId = $this->input->get_post('accountId', TRUE);
 		$gameId = $this->input->get_post('gameId', TRUE);
 		$type = $this->input->get_post('type', TRUE);
-		
-		$type = empty($type) ? 1 : ($type=='debug' ? 0 : 1);
 
 		if(!empty($gameId))
 		{
 			$this->load->model('mserver');
-			$result = $this->mserver->read(array(
-				'product_id'	=>	$gameId,
-				'server_type'	=>	$type
-			));
+			$parameter = array(
+				'product_id'	=>	$gameId
+			);
+			if($type != 'debug')
+			{
+				$parameter['server_type'] = 1;
+			}
+			$result = $this->mserver->read($parameter);
 
 			if(!empty($accountId))
 			{
