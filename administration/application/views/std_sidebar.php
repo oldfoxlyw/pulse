@@ -55,7 +55,7 @@
 						</a>
 					</li>
 					<li<?php if($page_name=='server_list'): ?> class="active"<?php endif; ?>>
-						<a href="<?php echo site_url('server_list/lists'); ?>">
+						<a href="<?php echo site_url('server/lists'); ?>">
 							<i class="icon-signal"></i>
 							服务器管理
 						</a>
