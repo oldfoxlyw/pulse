@@ -14,7 +14,7 @@ class Screenshot extends CI_Controller
 	
 	public function lists($offset = 0)
 	{
-		$this->load->model('product');
+		$this->load->model('mproduct');
 		$this->load->model('mscreenshot');
 		$this->load->library('pagination');
 		
@@ -36,7 +36,7 @@ class Screenshot extends CI_Controller
 		$pagination = $this->pagination->create_links();
 		$pagination = empty($pagination) ? '&nbsp;' : $pagination;
 
-		$productResult = $this->product->read();
+		$productResult = $this->mproduct->read();
 		
 		$data = array(
 			'admin'					=>	$this->user,
@@ -52,7 +52,7 @@ class Screenshot extends CI_Controller
 	{
 		if(!empty($id) && is_numeric($id))
 		{
-			$this->load->model('product');
+			$this->load->model('mproduct');
 			$this->load->model('mscreenshot');
 			$this->load->library('pagination');
 			
@@ -74,7 +74,7 @@ class Screenshot extends CI_Controller
 			$pagination = $this->pagination->create_links();
 			$pagination = empty($pagination) ? '&nbsp;' : $pagination;
 			
-			$productResult = $this->product->read();
+			$productResult = $this->mproduct->read();
 			$row = $this->mscreenshot->read(array(
 				'screenshot_id'		=>	$id
 			));
@@ -104,7 +104,7 @@ class Screenshot extends CI_Controller
 	public function submit()
 	{
 		$this->load->model('mscreenshot');
-		$this->load->model('product');
+		$this->load->model('mproduct');
 		
 		$edit = $this->input->post('edit', TRUE);
 		$screenshotId = $this->input->post('screenshotId', TRUE);
@@ -118,7 +118,7 @@ class Screenshot extends CI_Controller
 			showMessage(MESSAGE_TYPE_ERROR, 'NO_PARAM', '', 'screenshot/lists', true, 5);
 		}
 		
-		$productResult = $this->product->read(array(
+		$productResult = $this->mproduct->read(array(
 			'product_id'		=>	$productId
 		));
 		if(!empty($productResult))

@@ -36,26 +36,26 @@
 						</a>
 					</li>
 					<li<?php if($page_name=='activity'): ?> class="active"<?php endif; ?>>
-						<a href="<?php echo site_url('activity'); ?>">
+						<a href="<?php echo site_url('activity/lists'); ?>">
 							<i class="icon-th-large"></i>
 							日常活动
 						</a>
 					</li>
 					<li<?php if($page_name=='mail_template'): ?> class="active"<?php endif; ?>>
-						<a href="<?php echo site_url('mail_template'); ?>">
+						<a href="<?php echo site_url('mail_template/lists'); ?>">
 							<i class="icon-th-large"></i>
 							邮件模版
 						</a>
 					</li>
                     <hr />
 					<li<?php if($page_name=='product'): ?> class="active"<?php endif; ?>>
-						<a href="<?php echo site_url('product'); ?>">
+						<a href="<?php echo site_url('product/lists'); ?>">
 							<i class="icon-th-large"></i>
 							产品管理
 						</a>
 					</li>
 					<li<?php if($page_name=='server_list'): ?> class="active"<?php endif; ?>>
-						<a href="<?php echo site_url('server_list'); ?>">
+						<a href="<?php echo site_url('server_list/lists'); ?>">
 							<i class="icon-signal"></i>
 							服务器管理
 						</a>

@@ -46,11 +46,11 @@ class News extends CI_Controller
 	
 	public function publish()
 	{
-		$this->load->model('product');
+		$this->load->model('mproduct');
 		
 		$this->pageName = 'news_publish';
 		
-		$productResult = $this->product->read();
+		$productResult = $this->mproduct->read();
 		
 		$data = array(
 			'admin'					=>	$this->user,
@@ -64,12 +64,12 @@ class News extends CI_Controller
 	{
 		if(!empty($id) && is_numeric($id))
 		{
-			$this->load->model('product');
+			$this->load->model('mproduct');
 			$this->load->model('mnews');
 
 			$this->pageName = 'news_publish';
 
-			$productResult = $this->product->read();
+			$productResult = $this->mproduct->read();
 			$result = $this->mnews->read(array(
 				'news_id'		=>	$id
 			));
@@ -97,7 +97,7 @@ class News extends CI_Controller
 	public function submit()
 	{
 		$this->load->model('mnews');
-		$this->load->model('product');
+		$this->load->model('mproduct');
 		
 		$edit = $this->input->post('edit', TRUE);
 		$newsId = $this->input->post('newsId', TRUE);
@@ -111,7 +111,7 @@ class News extends CI_Controller
 			showMessage(MESSAGE_TYPE_ERROR, 'NO_PARAM', '', 'news/lists', true, 5);
 		}
 		
-		$productResult = $this->product->read(array(
+		$productResult = $this->mproduct->read(array(
 			'product_id'		=>	$productId
 		));
 		if(!empty($productResult))

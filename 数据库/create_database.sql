@@ -18,7 +18,7 @@ CREATE  TABLE IF NOT EXISTS `pulse_db_web`.`pulse_products` (
   `product_comment` TEXT NOT NULL COMMENT '游戏描述' ,
   `product_url_website` CHAR(128) NOT NULL COMMENT '游戏官网链接' ,
   `product_url_entry` CHAR(128) NOT NULL COMMENT '游戏入口链接' ,
-  `product_status` ENUM('PUBLIC','BETA','HOT') NOT NULL DEFAULT 'PUBLIC' ,
+  `product_status` ENUM('PUBLIC','BETA','HOT','CLOSE') NOT NULL DEFAULT 'PUBLIC' ,
   `product_recommand` TINYINT NOT NULL DEFAULT 1 ,
   `product_sort` INT NOT NULL DEFAULT 0 ,
   `product_exchange_rate` INT NOT NULL COMMENT '1元人民币能兑换多少游戏币' ,
