@@ -1,0 +1,59 @@
+﻿@charset "utf-8";
+/*-------------------------*/
+.main01 { background:url(../img/banner.jpg) center no-repeat; height:631px;}
+.main01 .detail { width:1240px; margin:0 auto; height:631px; position:relative;}
+.main01 .detail .flash { width:1240px; height:631px; position:absolute; top:0px; left:0px; z-index:10; background:url(../img/falsh.jpg) no-repeat;}
+.main01 .detail .txt { width:868px; height:204px; position:relative; z-index:20; background:url(../img/txt.png) no-repeat; top:340px; left:210px;}
+.main01 .nav { height:37px; width:100%; background:url(../img/bg_top.png) repeat-x; position:absolute; z-index:30;}
+.main01 .nav .navigate { width:1000px; margin:0 auto; height:37px;}
+.main01 .nav .navigate .logo { width:95px; height:30px; padding:3px 0 0;  float:left;}
+.main01 .nav .navigate .run { width:500px; float:right; height:37px;}
+.main01 .nav .navigate .run .task { width:125px; height:20px; background:url(../img/ipt02.png) bottom no-repeat; margin:0 10px 0 0; float:left; padding:8px 0 0;}
+.main01 .nav .navigate .run .task .iput { background:transparent; border:none; width:120px; height:18px; font-size:11px; color:#949595; padding:0 0 0 5px;  }
+.main01 .nav .navigate .run .push { width:46px;  margin:0 10px 0 0; padding:8px 0 0; float:left;}
+.main01 .nav .navigate .run .txt { width:140px; padding:8px 0 0; float:left; margin-left:20px;}
+.main01 .nav .navigate .run .txt ul { list-style:none;  color:#4ebaeb;}
+.main01 .nav .navigate .run .txt ul li { padding:0 10px 0 0; float:left; }
+/*-------------------------*/
+.main02 { background:url(../img/bg01.jpg) center no-repeat; height:103px;}
+.main02 .detail { width:1240px; margin:0 auto; height:103px; position:relative;}
+.main02 .detail .paly { width:367px; height:108px; margin:0 auto;}
+.main02 .detail .story { width:203px; height:51px; position:absolute; top:42px; left:240px;}
+.main02 .detail .web { width:203px; height:51px; position:absolute; top:42px; left:65px;}
+.main02 .detail .picture { width:203px; height:51px; position:absolute; top:42px; right:240px;}
+.main02 .detail .bbs { width:203px; height:51px; position:absolute; top:42px; right:65px;}
+/*-------------------------*/
+.main03 { height:666px; background:url(../img/bg02.jpg) center no-repeat;}
+.main03 .detail { width:1000px; margin:0 auto; height:460px; padding:20px 120px 0;}
+.main03 .detail .left { width:350px; height:460px; float:left;}
+.main03 .detail .left .reg { padding:5px 5px 5px 15px; height:195px;}
+.main03 .detail .left .reg .version { padding:6px 5px 6px 25px; margin:0 auto; width:265px;}
+.main03 .detail .left .reg .version .txt { width:80px; float:left; color:#FFF;}
+.main03 .detail .left .reg .version .dex { width:161px; float:left; height:22px; background:url(../img/input.png) no-repeat;}
+.main03 .detail .left .reg .version .iput {background:transparent; border:none; width:161px; height:20px; font-size:12px; color:#FFF;}
+.main03 .detail .left .reg .refer { padding:10px 5px 6px 25px; margin:0 auto; width:265px;}
+.main03 .detail .left .reg .refer .txt { padding:5px; width:162px; float:left; color:#87a628;}
+.main03 .detail .left .reg .refer .txt p { padding:0 0 0 20px; background:url(../img/reach.png) left center no-repeat;}
+.main03 .detail .left .reg .refer .dex { width:68px; height:23px; float:left;}
+/*-------------------------*/
+.main03 .detail .left .news { padding:5px 5px 5px 15px;}
+.main03 .detail .left .news .cent { }
+.main03 .detail .left .news .cent p { background:url(../img/bule-line02.png) bottom center no-repeat; color:#80878e; padding:5px 0 5px 30px;}
+/*-------------------------*/
+.main03 .detail .right { width:650px; height:460px; float:left; position:relative;}
+.main03 .detail .right .video { width:289px; height:159px; position:absolute; top:30px; background:url(../img/01.png) no-repeat; left:20px; border:3px solid #1e4e72;}
+.main03 .detail .right .video .txt { width:148px; height:39px; background:url(../img/video.png) no-repeat; position:absolute; left:70px; top:60px;}
+.main03 .detail .right .game { width:289px; height:159px; position:absolute; top:30px; background:url(../img/02.png) no-repeat; right:20px; border:3px solid #1e4e72;}
+.main03 .detail .right .game .txt { width:149px; height:33px; background:url(../img/game.png) no-repeat; position:absolute; left:70px; top:60px;}
+.main03 .detail .right .war { width:289px; height:159px; position:absolute; top:250px; background:url(../img/03.png) no-repeat; left:20px; border:3px solid #1e4e72;}
+.main03 .detail .right .assembly { width:289px; height:159px; position:absolute; top:250px; background:url(../img/04.png) no-repeat; right:20px; border:3px solid #1e4e72;}
+/*-------------------------*/
+.main03 .share { height:55px;  width:1000px; margin:0 auto; padding:16px 120px 0; position:relative;  }
+.main03 .share .web { width:172px; height:39px; margin:0 auto;}
+.main03 .share .sina { width:172px; height:39px; left:200px; top:16px; position:absolute;}
+.main03 .share .wx { width:172px; height:39px; right:200px; top:16px; position:absolute;}
+/*-------------------------*/
+.main03 .foot { height:115px; background:url(../img/foot.png) bottom center no-repeat; }
+.main03 .foot .base { width:1000px; margin:0 auto; padding:30px 120px 0; }
+.main03 .foot .base .logo { width:179px; height:62px; background:url(../img/logo.png) no-repeat; float:right;}
+.main03 .foot .base h3 { color:#FFF; float:left; font-size:11px; font-weight:normal; padding:18px 0 0 0; margin:0;}

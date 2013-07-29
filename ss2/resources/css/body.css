@@ -1,0 +1,8 @@
+﻿@charset "utf-8";
+/*-------------------------*/
+
+body { font:normal 13px/20px 微软雅黑, 宋体, Microsoft YaHei, Helvetica, Tahoma, StSun, SimSun, sans-serif; min-width:1240px; margin:0 auto; padding:0; background-color:#000;}
+.clear { clear:both;}
+h1, h2, h3, h4, h5, p, ol, li, ul, form, label, img, dl, dd, dt, form { border:0; margin:0; padding:0;}
+a img {0}
+a{ text-decoration:none; }
