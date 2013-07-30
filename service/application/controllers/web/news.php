@@ -38,7 +38,7 @@ class News extends CI_Controller
 		
 		$result = $this->mnews->read($parameter, array(
 			'news_posttime',
-			'desc'
+			'asc'
 		), $limit, $offset);
 		
 		echo $this->return_format->format($result);
