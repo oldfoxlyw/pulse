@@ -29,7 +29,10 @@ class Index extends CI_Controller
 			$news = $cache;
 		}
 		
-		echo $news;
+		$data = array(
+			'news'		=>	$news
+		);
+		$this->load->view('index', $data);
 	}
 }
 

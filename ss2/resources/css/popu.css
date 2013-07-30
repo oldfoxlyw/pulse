@@ -1,10 +1,10 @@
 ﻿@charset "utf-8";
 /*-------------------------*/
-.popu, .popu01 { width:708px; position:relative; color:#FFF;}
-.popu .close, .popu01 .close { width:40px; height:20px; position:absolute; top:30px; right:20px;}
+.popu, .popu01 { width:708px; position:absolute; color:#FFF; display:none;z-index:10000;}
+.popu .close, .popu01 .close { width:40px; height:20px; position:absolute; top:30px; right:20px; cursor:pointer;}
 .popu .top, .popu01 .top  { height:60px; background:url(../img/popu_top.png) no-repeat;}
 .popu .bot, .popu01 .bot { height:46px; background:url(../img/popu_bot.png) no-repeat;}
-.popu .cent { width:568px; padding:10px 70px;  background:url(../img/popu_cen.png) repeat-y;}
+.popu .cent { width:568px; height:161px; padding:10px 70px;  background:url(../img/popu_cen.png) repeat-y;}
 .popu .cent .left01 { width:265px; height:155px; border:3px solid #838485; float:left;}
 .popu .cent .right01 { width:265px; height:155px; border:3px solid #838485; float:right;}
 .popu .pointerleft { width:25px; height:102px; position:absolute; top:270px; left:25px;} 
