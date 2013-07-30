@@ -126,7 +126,7 @@
 				<div class="cent">
                 <?php for($i=0; $i<5; $i++): ?>
                 <?php if(empty($news[$i])) break; ?>
-					<p style="background:none;"><img src="<?php echo base_url("resources/img/trumpet.png"); ?>" align="absmiddle" style="margin-right:10px;" /><a href="#">阿斯蒂芬离开家ad烦死了空间</a></p>
+					<p<?php if($i==4): ?> style="background:none;"<?php endif; ?>><img src="<?php echo base_url("resources/img/trumpet.png"); ?>" align="absmiddle" style="margin-right:10px;" /><a href="#"><?php echo $news[$i]->news_title; ?></a></p>
                 <?php endfor; ?>
 				</div>	
 				<img src="<?php echo base_url("resources/img/bule-line.png"); ?>" />		

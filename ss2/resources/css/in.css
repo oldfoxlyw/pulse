@@ -39,7 +39,7 @@
 .main03 .detail .left .reg .refer .dex { width:68px; height:23px; float:left;}
 /*-------------------------*/
 .main03 .detail .left .news { padding:5px 5px 5px 15px;}
-.main03 .detail .left .news .cent { }
+.main03 .detail .left .news .cent {height:auto;}
 .main03 .detail .left .news .cent p { background:url(../img/bule-line02.png) bottom center no-repeat; color:#80878e; padding:5px 0 5px 30px;}
 .main03 .detail .left .news .cent p a { color:#80878e; text-decoration:none;}
 .main03 .detail .left .news .cent p a:hover  { color:#FFF;}
