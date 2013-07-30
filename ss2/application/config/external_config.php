@@ -4,7 +4,7 @@ $config['product_id'] = 1001;
 /*
  * 项目根地址
  */
-$config['platform_path'] = 'localhost:8080/pulse/service/';
+$config['platform_path'] = 'localhost/pulse/service/';
 $config['enable_ssl'] = false;
 
 /*
