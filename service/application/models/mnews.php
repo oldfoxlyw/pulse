@@ -2,8 +2,8 @@
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 require_once('ICrud.php');
 
-class Product extends CI_Model implements ICrud {
-	private $productTable = 'pulse_products';
+class Mnews extends CI_Model implements ICrud {
+	private $accountTable = 'pulse_news';
 	
 	public function __construct()
 	{
@@ -23,14 +23,21 @@ class Product extends CI_Model implements ICrud {
 		{
 			
 		}
-		return $this->db->count_all_results($this->productTable);
+		return $this->db->count_all_results($this->accountTable);
 	}
 	
 	public function create($row)
 	{
 		if(!empty($row))
 		{
-			return $this->db->insert($this->productTable, $row);
+			if($this->db->insert($this->accountTable, $row))
+			{
+				return $this->db->insert_id();
+			}
+			else
+			{
+				return false;
+			}
 		}
 		else
 		{
@@ -49,12 +56,15 @@ class Product extends CI_Model implements ICrud {
 		}
 		if(!empty($extension))
 		{
-			
+			if(!empty($extension['order_by']))
+			{
+				$this->db->order_by($extension['order_by'][0], $extension['order_by'][1]);
+			}
 		}
 		if($limit==0 && $offset==0) {
-			$query = $this->db->get($this->productTable);
+			$query = $this->db->get($this->accountTable);
 		} else {
-			$query = $this->db->get($this->productTable, $limit, $offset);
+			$query = $this->db->get($this->accountTable, $limit, $offset);
 		}
 		if($query->num_rows() > 0) {
 			return $query->result();
@@ -67,8 +77,8 @@ class Product extends CI_Model implements ICrud {
 	{
 		if(!empty($id) && !empty($row))
 		{
-			$this->db->where('product_id', $id);
-			return $this->db->update($this->productTable, $row);
+			$this->db->where('news_id', $id);
+			return $this->db->update($this->accountTable, $row);
 		}
 		else
 		{
@@ -80,8 +90,8 @@ class Product extends CI_Model implements ICrud {
 	{
 		if(!empty($id))
 		{
-			$this->db->where('product_id', $id);
-			return $this->db->delete($this->productTable);
+			$this->db->where('news_id', $id);
+			return $this->db->delete($this->accountTable);
 		}
 		else
 		{

@@ -1,4 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+$config['product_id'] = 1001;
 /*
  * 项目根地址
  */
