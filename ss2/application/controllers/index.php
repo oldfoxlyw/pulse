@@ -22,7 +22,7 @@ class Index extends CI_Controller
 			$news = $this->connector->post('web/news/lists', array(
 				'productId'	=>	$this->productId
 			));
-			$this->cache->save('index_news_list', $news, 600);
+			$this->cache->save('index_news_list', $news, 10);
 		}
 		else
 		{
