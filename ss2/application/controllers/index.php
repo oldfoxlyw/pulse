@@ -28,6 +28,7 @@ class Index extends CI_Controller
 		{
 			$news = $cache;
 		}
+		$news = json_decode($news);
 		
 		$data = array(
 			'news'		=>	$news
