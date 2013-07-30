@@ -14,6 +14,8 @@
 .main01 .nav .navigate .run .txt { width:140px; padding:8px 0 0; float:left; margin-left:20px;}
 .main01 .nav .navigate .run .txt ul { list-style:none;  color:#4ebaeb;}
 .main01 .nav .navigate .run .txt ul li { padding:0 10px 0 0; float:left; }
+.main01 .nav .navigate .run .txt a { color:#4ebaeb; text-decoration:none;}
+.main01 .nav .navigate .run .txt a:hover { color:#FF6600;}
 /*-------------------------*/
 .main02 { background:url(../img/bg01.jpg) center no-repeat; height:103px;}
 .main02 .detail { width:1240px; margin:0 auto; height:103px; position:relative;}
@@ -39,6 +41,8 @@
 .main03 .detail .left .news { padding:5px 5px 5px 15px;}
 .main03 .detail .left .news .cent { }
 .main03 .detail .left .news .cent p { background:url(../img/bule-line02.png) bottom center no-repeat; color:#80878e; padding:5px 0 5px 30px;}
+.main03 .detail .left .news .cent p a { color:#80878e; text-decoration:none;}
+.main03 .detail .left .news .cent p a:hover  { color:#FFF;}
 /*-------------------------*/
 .main03 .detail .right { width:650px; height:460px; float:left; position:relative;}
 .main03 .detail .right .video { width:289px; height:159px; position:absolute; top:30px; background:url(../img/01.png) no-repeat; left:20px; border:3px solid #1e4e72;}
