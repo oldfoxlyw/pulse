@@ -21,8 +21,10 @@ class News extends CI_Controller
 		
 		$count = $this->mnews->count();
 		$result = $this->mnews->read(null, array(
-			'news_posttime',
-			'desc'
+			'order_by'		=>	array(
+				'news_posttime',
+				'desc'
+			)
 		), 30, $offset);
 		
 		$page_config['base_url'] = site_url('news/lists');
