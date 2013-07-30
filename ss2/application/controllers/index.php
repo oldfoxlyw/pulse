@@ -16,14 +16,17 @@ class Index extends CI_Controller
 		$this->load->driver('cache', array(
 			'adapter' => 'apc'
 		));
-		
-		$news = $this->connector->post('web/news/lists', array(
-			'productId'	=>	$this->productId
-		));
-		
-		if ( !$cache = $this->cache->get('index_news_list'))
+		$cache = $this->cache->get('index_news_list');
+		if ( !$cache)
 		{
+			$news = $this->connector->post('web/news/lists', array(
+				'productId'	=>	$this->productId
+			));
 			$this->cache->save('index_news_list', $news, 600);
+		}
+		else
+		{
+			$news = $cache;
 		}
 		
 		echo $news;
