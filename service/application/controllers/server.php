@@ -159,6 +159,10 @@ class Server extends CI_Controller
 				$this->mserverlog->create($parameter);
 			}
 		}
+		$parameter = array(
+			'message'		=>	'SERVER_LOG_SUCCESS'
+		);
+		echo $this->return_format->format($parameter);
 	}
 }
 ?>
