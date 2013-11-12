@@ -72,10 +72,19 @@ class Mserverlog extends CI_Model implements ICrud {
 	
 	public function update($id, $row)
 	{
-		if(!empty($id))
+		if(is_array($id))
 		{
-			$this->db->where('id', $id);
-			return $this->db->update($this->serverTable, $row);
+			if(!empty($id['product_id']) && !empty($id['account_id']) && !empty($id['server_id']))
+			{
+				$this->db->where('product_id', $id['product_id']);
+				$this->db->where('account_id', $id['account_id']);
+				$this->db->where('server_id', $id['server_id']);
+				return $this->db->update($this->serverTable, $row);
+			}
+			else
+			{
+				return false;
+			}
 		}
 		else
 		{
@@ -87,10 +96,11 @@ class Mserverlog extends CI_Model implements ICrud {
 	{
 		if(is_array($id))
 		{
-			if(!empty($id['product_id']) && !empty($id['account_id']))
+			if(!empty($id['product_id']) && !empty($id['account_id']) && !empty($id['server_id']))
 			{
 				$this->db->where('product_id', $id['product_id']);
 				$this->db->where('account_id', $id['account_id']);
+				$this->db->where('server_id', $id['server_id']);
 				return $this->db->delete($this->serverTable);
 			}
 			else

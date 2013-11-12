@@ -146,7 +146,12 @@ class Server extends CI_Controller
 				$parameter = array(
 					'updatetime'	=>	time()
 				);
-				$this->mserverlog->update($result[0]->id, $parameter);
+				$where = array(
+					'product_id'	=>	$productId,
+					'account_id'	=>	$accountId,
+					'server_id'		=>	$serverId
+				);
+				$this->mserverlog->update($where, $parameter);
 			}
 			else
 			{
