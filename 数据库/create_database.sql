@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `pulse_db_web`.`pulse_account` (
   `ucenter_uid` INT NOT NULL DEFAULT 0,
   `account_cash` INT NOT NULL DEFAULT 0 COMMENT '剩余平台币',
   `account_recharge` INT NOT NULL DEFAULT 0 COMMENT '累计充值',
-  `account_fromwhere` INT NOT NULL DEFAULT 0,
+  `partner` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`account_id`),
   INDEX `account_name` (`account_name` ASC, `account_pass` ASC),
   INDEX `ucenter_uid` (`ucenter_uid` ASC))
@@ -132,6 +132,7 @@ CREATE TABLE IF NOT EXISTS `pulse_db_web`.`pulse_log` (
   `log_method` CHAR(8) NOT NULL,
   `log_parameter` TEXT NOT NULL,
   `log_time_local` DATETIME NOT NULL,
+  `partner` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`log_id`))
 ENGINE = InnoDB;
 
@@ -265,41 +266,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pulse_db_web`.`pulse_order`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `pulse_db_web`.`pulse_order` ;
-
-CREATE TABLE IF NOT EXISTS `pulse_db_web`.`pulse_order` (
-  `order_id` BIGINT NOT NULL AUTO_INCREMENT,
-  `account_id` BIGINT NOT NULL,
-  `order_cash` INT NOT NULL COMMENT '以分为单位',
-  `account_cash` INT NOT NULL COMMENT '累计充值金额',
-  `account_fromwhere` INT NOT NULL,
-  `order_type` INT NOT NULL DEFAULT 1 COMMENT '充值渠道：1=paypal',
-  `order_time` INT NOT NULL,
-  PRIMARY KEY (`order_id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `pulse_db_web`.`pulse_order_game`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `pulse_db_web`.`pulse_order_game` ;
-
-CREATE TABLE IF NOT EXISTS `pulse_db_web`.`pulse_order_game` (
-  `order_id` BIGINT NOT NULL AUTO_INCREMENT,
-  `account_id` BIGINT NOT NULL,
-  `product_id` INT NOT NULL,
-  `server_id` INT NOT NULL,
-  `order_cash` INT NOT NULL,
-  `account_cash` INT NOT NULL COMMENT '剩余平台币',
-  `order_time` INT NOT NULL,
-  `order_type` INT NOT NULL DEFAULT 999 COMMENT '充值渠道：1=paypal 999=平台直充',
-  PRIMARY KEY (`order_id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `pulse_db_web`.`pulse_screenshot`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `pulse_db_web`.`pulse_screenshot` ;
@@ -348,6 +314,22 @@ CREATE TABLE IF NOT EXISTS `pulse_db_web`.`pulse_admin_role` (
   PRIMARY KEY (`role_id`))
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `pulse_db_web`.`pulse_role`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pulse_db_web`.`pulse_role` ;
+
+CREATE TABLE IF NOT EXISTS `pulse_db_web`.`pulse_role` (
+  `account_id` BIGINT NOT NULL,
+  `role_id` BIGINT NOT NULL,
+  `nickname` CHAR(32) NOT NULL,
+  `level` INT NOT NULL,
+  `last_mission` CHAR(36) NOT NULL,
+  `login_time` INT NOT NULL,
+  PRIMARY KEY (`account_id`, `role_id`))
+ENGINE = InnoDB;
+
 USE `pulse_db_log` ;
 
 -- -----------------------------------------------------
@@ -358,11 +340,12 @@ DROP TABLE IF EXISTS `pulse_db_log`.`log_account` ;
 CREATE TABLE IF NOT EXISTS `pulse_db_log`.`log_account` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `account_id` BIGINT NOT NULL,
+  `role_id` BIGINT NOT NULL DEFAULT 0,
   `product_id` INT NOT NULL,
-  `server_id` INT NOT NULL,
-  `terminal_type` TINYINT NOT NULL DEFAULT 1 COMMENT '终端类型\n1=PC登录\n2=Mobile登录',
+  `server_id` INT NOT NULL DEFAULT 0,
+  `terminal_type` TINYINT NOT NULL DEFAULT 1 COMMENT '终端类型\n1=PC登录\n2=Mobile登录\n3=网页登录',
   `partner` INT NOT NULL DEFAULT 0,
-  `action_type` INT NOT NULL,
+  `action_type` INT NOT NULL COMMENT '1=登录\n2=注册',
   `log_time` INT NOT NULL,
   `log_ip` CHAR(20) NOT NULL,
   PRIMARY KEY (`id`))
@@ -379,7 +362,7 @@ CREATE TABLE IF NOT EXISTS `pulse_db_log`.`log_product_common` (
   `log_date` DATE NOT NULL,
   `product_id` INT NOT NULL,
   `server_id` INT NOT NULL,
-  `terminal_type` TINYINT NOT NULL COMMENT '终端类型\n0=总数\n1=PC登录\n2=Mobile登录',
+  `terminal_type` TINYINT NOT NULL COMMENT '终端类型\n0=总数\n1=PC登录\n2=Mobile登录\n3=网页登录',
   `partner` INT NOT NULL,
   `count_register` INT NOT NULL COMMENT '日注册用户数',
   `count_register_new` INT NOT NULL COMMENT '日新增注册用户数',
@@ -405,6 +388,66 @@ CREATE TABLE IF NOT EXISTS `pulse_db_log`.`log_product_consume` (
   `count_upaid` INT NOT NULL COMMENT '日付费用户数（去重）',
   `count_paid` INT NOT NULL COMMENT '日付费次数（有重复）',
   `arpu` INT NOT NULL COMMENT '销售金额/付费用户数(付费一次，重复不计)',
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pulse_db_log`.`log_order`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pulse_db_log`.`log_order` ;
+
+CREATE TABLE IF NOT EXISTS `pulse_db_log`.`log_order` (
+  `order_id` BIGINT NOT NULL AUTO_INCREMENT,
+  `account_id` BIGINT NOT NULL,
+  `partner` INT NOT NULL,
+  `order_cash` INT NOT NULL COMMENT '以分为单位',
+  `account_cash` INT NOT NULL COMMENT '累计充值金额',
+  `account_fromwhere` INT NOT NULL,
+  `order_type` INT NOT NULL DEFAULT 1 COMMENT '充值渠道：1=paypal',
+  `order_time` INT NOT NULL,
+  PRIMARY KEY (`order_id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pulse_db_log`.`log_order_game`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pulse_db_log`.`log_order_game` ;
+
+CREATE TABLE IF NOT EXISTS `pulse_db_log`.`log_order_game` (
+  `order_id` BIGINT NOT NULL AUTO_INCREMENT,
+  `account_id` BIGINT NOT NULL,
+  `role_id` INT NOT NULL,
+  `product_id` INT NOT NULL,
+  `server_id` INT NOT NULL,
+  `partner` INT NOT NULL,
+  `order_cash` INT NOT NULL,
+  `account_cash` INT NOT NULL COMMENT '剩余平台币',
+  `order_time` INT NOT NULL,
+  `order_type` INT NOT NULL DEFAULT 999 COMMENT '充值渠道：1=paypal 999=平台直充',
+  PRIMARY KEY (`order_id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pulse_db_log`.`log_consume`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pulse_db_log`.`log_consume` ;
+
+CREATE TABLE IF NOT EXISTS `pulse_db_log`.`log_consume` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `account_id` BIGINT NOT NULL,
+  `role_id` BIGINT NOT NULL,
+  `product_id` INT NOT NULL,
+  `server_id` INT NOT NULL,
+  `partner` INT NOT NULL,
+  `currency_type` TINYINT NOT NULL COMMENT '货币种类\n0=普通游戏币\n1=付费游戏币',
+  `currency_current` INT NOT NULL,
+  `currency_change` INT NOT NULL,
+  `item_name` CHAR(64) NOT NULL,
+  `item_type` TINYINT NOT NULL,
+  `time` INT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 

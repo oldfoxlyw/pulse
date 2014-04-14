@@ -64,6 +64,22 @@ $db['webdb']['swap_pre'] = '';
 $db['webdb']['autoinit'] = TRUE;
 $db['webdb']['stricton'] = FALSE;
 
+$db['logdb']['hostname'] = 'localhost';
+$db['logdb']['username'] = 'root';
+$db['logdb']['password'] = '84@41%%wi96^4';
+$db['logdb']['database'] = 'pulse_db_log';
+$db['logdb']['dbdriver'] = 'mysqli';
+$db['logdb']['dbprefix'] = '';
+$db['logdb']['pconnect'] = FALSE;
+$db['logdb']['db_debug'] = TRUE;
+$db['logdb']['cache_on'] = FALSE;
+$db['logdb']['cachedir'] = '';
+$db['logdb']['char_set'] = 'utf8';
+$db['logdb']['dbcollat'] = 'utf8_general_ci';
+$db['logdb']['swap_pre'] = '';
+$db['logdb']['autoinit'] = TRUE;
+$db['logdb']['stricton'] = FALSE;
+
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */

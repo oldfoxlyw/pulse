@@ -24,7 +24,8 @@ class Account extends CI_Controller
 	{
 		$userName = $this->input->post('userName', TRUE);
 		$userPass = $this->input->post('userPass', TRUE);
-
+		$partner = $this->input->post('partner');
+		$partner = empty($partner) ? 0 : intval($partner);
 
 		if(!empty($userName) && !empty($userPass))
 		{
@@ -40,10 +41,11 @@ class Account extends CI_Controller
 			
 			if($result === FALSE)
 			{
-				// $this->logs->write(array(
-				// 	'log_type'		=>	'USER_INVALID',
-				// 	'user_name'	=>	$accountName
-				// ));
+				$this->logs->write(array(
+					'log_type'		=>	'USER_INVALID',
+					'user_name'		=>	$accountName,
+					'partner'		=>	$partner
+				));
 				$parameter = array(
 					'errors'	=>	'ACCOUNT_LOGIN_FAIL'
 				);
@@ -55,10 +57,11 @@ class Account extends CI_Controller
 	            $this->maccount->update($row->account_id, array(
 	            	'account_lastlogin'	=>	time()
 	            ));
-				// $this->logs->write(array(
-				// 	'log_type'		=>	'USER_LOGIN',
-				// 	'user_name'	=>	$accountName
-				// ));
+				$this->logs->write(array(
+					'log_type'		=>	'USER_LOGIN',
+					'user_name'		=>	$accountName,
+					'partner'		=>	$partner
+				));
 				//ACCOUNT_LOGIN_ERROR_FREEZED
 				$parameter = array(
 					'message'		=>	'ACCOUNT_LOGIN_SUCCESS',
@@ -80,11 +83,13 @@ class Account extends CI_Controller
 	{
 		$userName = $this->input->post('userName', TRUE);
 		$userPass = $this->input->post('userPass', TRUE);
-
+		$partner = $this->input->post('partner');
+		$partner = empty($partner) ? 0 : intval($partner);
 
 		if(!empty($userName) && !empty($userPass))
 		{
 			$this->load->model('maccount');
+			$this->load->model('utils/logs');
 			$this->load->helper('security');
 
 			$result = $this->maccount->read(array(
@@ -106,6 +111,11 @@ class Account extends CI_Controller
 				);
 				$accountId = $this->maccount->create($parameter);
 
+				$this->logs->write(array(
+					'log_type'		=>	'USER_REGISTER',
+					'user_name'		=>	$userName,
+					'partner'		=>	$partner
+				));
 				$parameter = array(
 					'message'	=>	'ACCOUNT_REGISTER_SUCCESS',
 					'accountId'	=>	$accountId
