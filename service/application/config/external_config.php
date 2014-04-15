@@ -15,4 +15,8 @@ $config['upload_dir'] = 'resources/incoming';
 $config['pagination_per_page'] = 30;
 
 $config['mail_filter'] = "/@(apple.com|microsoft.com|google.com)/i";
+/*
+ * 产品ID
+ */
+$config['product_id'] = 1001;
 ?>

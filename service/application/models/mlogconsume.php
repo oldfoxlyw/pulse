@@ -18,23 +18,23 @@ class Mlogconsume extends CI_Model implements ICrud {
 		{
 			foreach($parameter as $key=>$value)
 			{
-				$this->db->where($key, $value);
+				$this->currentdb->where($key, $value);
 			}
 		}
 		if(!empty($extension))
 		{
 			
 		}
-		return $this->db->count_all_results($this->accountTable);
+		return $this->currentdb->count_all_results($this->accountTable);
 	}
 	
 	public function create($row)
 	{
 		if(!empty($row))
 		{
-			if($this->db->insert($this->accountTable, $row))
+			if($this->currentdb->insert($this->accountTable, $row))
 			{
-				return $this->db->insert_id();
+				return $this->currentdb->insert_id();
 			}
 			else
 			{
@@ -53,20 +53,20 @@ class Mlogconsume extends CI_Model implements ICrud {
 		{
 			foreach($parameter as $key=>$value)
 			{
-				$this->db->where($key, $value);
+				$this->currentdb->where($key, $value);
 			}
 		}
 		if(!empty($extension))
 		{
 			if(!empty($extension['order_by']))
 			{
-				$this->db->order_by($extension['order_by'][0], $extension['order_by'][1]);
+				$this->currentdb->order_by($extension['order_by'][0], $extension['order_by'][1]);
 			}
 		}
 		if($limit==0 && $offset==0) {
-			$query = $this->db->get($this->accountTable);
+			$query = $this->currentdb->get($this->accountTable);
 		} else {
-			$query = $this->db->get($this->accountTable, $limit, $offset);
+			$query = $this->currentdb->get($this->accountTable, $limit, $offset);
 		}
 		if($query->num_rows() > 0) {
 			return $query->result();
@@ -83,14 +83,14 @@ class Mlogconsume extends CI_Model implements ICrud {
 			{
 				foreach($id as $key=>$value)
 				{
-					$this->db->where($key, $value);
+					$this->currentdb->where($key, $value);
 				}
 			}
 			elseif(is_numeric($id))
 			{
-				$this->db->where('id', $id);
+				$this->currentdb->where('id', $id);
 			}
-			return $this->db->update($this->accountTable, $row);
+			return $this->currentdb->update($this->accountTable, $row);
 		}
 		else
 		{
@@ -106,14 +106,14 @@ class Mlogconsume extends CI_Model implements ICrud {
 			{
 				foreach($id as $key=>$value)
 				{
-					$this->db->where($key, $value);
+					$this->currentdb->where($key, $value);
 				}
 			}
 			elseif(is_numeric($id))
 			{
-				$this->db->where('id', $id);
+				$this->currentdb->where('id', $id);
 			}
-			return $this->db->delete($this->accountTable);
+			return $this->currentdb->delete($this->accountTable);
 		}
 		else
 		{

@@ -321,23 +321,26 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pulse_db_web`.`pulse_role` ;
 
 CREATE TABLE IF NOT EXISTS `pulse_db_web`.`pulse_role` (
+  `product_id` INT NOT NULL,
+  `server_id` INT NOT NULL,
+  `partner` INT NOT NULL,
   `account_id` BIGINT NOT NULL,
   `role_id` BIGINT NOT NULL,
   `nickname` CHAR(32) NOT NULL,
   `level` INT NOT NULL,
   `last_mission` CHAR(36) NOT NULL,
   `login_time` INT NOT NULL,
-  PRIMARY KEY (`account_id`, `role_id`))
+  PRIMARY KEY (`product_id`, `server_id`, `account_id`, `role_id`, `partner`))
 ENGINE = InnoDB;
 
 USE `pulse_db_log` ;
 
 -- -----------------------------------------------------
--- Table `pulse_db_log`.`log_account`
+-- Table `pulse_db_log`.`log_account_role`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `pulse_db_log`.`log_account` ;
+DROP TABLE IF EXISTS `pulse_db_log`.`log_account_role` ;
 
-CREATE TABLE IF NOT EXISTS `pulse_db_log`.`log_account` (
+CREATE TABLE IF NOT EXISTS `pulse_db_log`.`log_account_role` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `account_id` BIGINT NOT NULL,
   `role_id` BIGINT NOT NULL DEFAULT 0,
@@ -449,6 +452,22 @@ CREATE TABLE IF NOT EXISTS `pulse_db_log`.`log_consume` (
   `item_type` TINYINT NOT NULL,
   `time` INT NOT NULL,
   PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pulse_db_log`.`log_online_count_detail`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pulse_db_log`.`log_online_count_detail` ;
+
+CREATE TABLE IF NOT EXISTS `pulse_db_log`.`log_online_count_detail` (
+  `product_id` INT NOT NULL,
+  `server_id` INT NOT NULL,
+  `date` DATE NOT NULL,
+  `hour` INT NOT NULL,
+  `minutes` INT NOT NULL,
+  `count` INT NOT NULL,
+  PRIMARY KEY (`date`, `product_id`, `server_id`, `hour`, `minutes`))
 ENGINE = InnoDB;
 
 

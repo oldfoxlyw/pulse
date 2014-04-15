@@ -2,12 +2,14 @@
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 require_once('ICrud.php');
 
-class Mrolecount extends CI_Model implements ICrud {
-	private $serverTable = 'pulse_role_count';
+class Monlinedetail extends CI_Model implements ICrud {
+	private $serverTable = 'log_online_count_detail';
+	private $currentdb = null;
 	
 	public function __construct()
 	{
 		parent::__construct();
+		$this->currentdb = $this->database->load('logdb', TRUE);
 	}
 	
 	public function count($parameter = null, $extension = null)
@@ -16,21 +18,21 @@ class Mrolecount extends CI_Model implements ICrud {
 		{
 			foreach($parameter as $key=>$value)
 			{
-				$this->db->where($key, $value);
+				$this->currentdb->where($key, $value);
 			}
 		}
 		if(!empty($extension))
 		{
 			
 		}
-		return $this->db->count_all_results($this->serverTable);
+		return $this->currentdb->count_all_results($this->serverTable);
 	}
 	
 	public function create($row)
 	{
 		if(!empty($row))
 		{
-			return $this->db->insert($this->serverTable, $row);
+			return $this->currentdb->insert($this->serverTable, $row);
 		}
 		else
 		{
@@ -44,20 +46,20 @@ class Mrolecount extends CI_Model implements ICrud {
 		{
 			foreach($parameter as $key=>$value)
 			{
-				$this->db->where($key, $value);
+				$this->currentdb->where($key, $value);
 			}
 		}
 		if(!empty($extension))
 		{
 			if(!empty($extension['orderby']))
 			{
-				$this->db->order_by($extension['orderby'][0], $extension['orderby'][1]);
+				$this->currentdb->order_by($extension['orderby'][0], $extension['orderby'][1]);
 			}
 		}
 		if($limit==0 && $offset==0) {
-			$query = $this->db->get($this->serverTable);
+			$query = $this->currentdb->get($this->serverTable);
 		} else {
-			$query = $this->db->get($this->serverTable, $limit, $offset);
+			$query = $this->currentdb->get($this->serverTable, $limit, $offset);
 		}
 		if($query->num_rows() > 0) {
 			return $query->result();
@@ -72,9 +74,9 @@ class Mrolecount extends CI_Model implements ICrud {
 		{
 			foreach($id as $key=>$value)
 			{
-				$this->db->where($key, $value);
+				$this->currentdb->where($key, $value);
 			}
-			return $this->db->update($this->serverTable, $row);
+			return $this->currentdb->update($this->serverTable, $row);
 		}
 		else
 		{
@@ -88,9 +90,9 @@ class Mrolecount extends CI_Model implements ICrud {
 		{
 			foreach($id as $key=>$value)
 			{
-				$this->db->where($key, $value);
+				$this->currentdb->where($key, $value);
 			}
-			return $this->db->delete($this->serverTable);
+			return $this->currentdb->delete($this->serverTable);
 		}
 		else
 		{
@@ -100,7 +102,7 @@ class Mrolecount extends CI_Model implements ICrud {
 
 	public function db()
 	{
-		return $this->db;
+		return $this->currentdb;
 	}
 }
 

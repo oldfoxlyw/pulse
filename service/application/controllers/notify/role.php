@@ -109,6 +109,28 @@ class Role extends CI_Controller
 			);
 			$this->mrole->create($parameter);
 
+			$this->load->model('mrolecount');
+			$parameter = array(
+				'product_id'		=>	$product_id,
+				'account_id'		=>	$account_id,
+				'server_id'			=>	$server_id	
+			);
+			$result = $this->mrolecount->read($parameter);
+			if(!empty($result))
+			{
+				$db = $this->mrolecount->db();
+				$db->set('count', 'count+1', FALSE);
+				$db->where('product_id', $product_id);
+				$db->where('account_id', $account_id);
+				$db->where('server_id', $server_id);
+				$db->update('pulse_role_count');
+			}
+			else
+			{
+				$parameter['count'] = 1;
+				$this->mrolecount->create($parameter);
+			}
+
 			$this->load->model('utils/logs');
 			$parameter = array(
 				'account_id'		=>	$account_id,
@@ -169,6 +191,39 @@ class Role extends CI_Controller
 				'code'		=>	-1
 			);
 			echo $this->return_format->format($json);
+		}
+	}
+
+	/**
+	 *
+	 * 推送在线人数
+	 *
+	 */
+	public function online_count()
+	{
+		$product_id = $this->input->post('product_id');
+		$server_id = $this->input->post('server_id');
+		$count = $this->input->post('count');
+		$time = $this->input->post('time');
+
+		if(!empty($product_id) && !empty($server_id))
+		{
+			$count = intval($count);
+			$time = empty($time) ? time() : intval($time);
+			$date = date('Y-m-d', $time);
+			$hour = date('G', $time);
+			$minutes = date('i', $time);
+
+			$this->load->model('monlinedetail');
+			$parameter = array(
+				'product_id'		=>	$product_id,
+				'server_id'			=>	$server_id,
+				'date'				=>	$date,
+				'hour'				=>	$hour,
+				'minutes'			=>	$minutes,
+				'count'				=>	$count
+			);
+			$this->monlinedetail->create($parameter);
 		}
 	}
 }
