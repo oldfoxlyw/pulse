@@ -333,6 +333,19 @@ CREATE TABLE IF NOT EXISTS `pulse_db_web`.`pulse_role` (
   PRIMARY KEY (`product_id`, `server_id`, `account_id`, `role_id`, `partner`))
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `pulse_db_web`.`pulse_partner`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pulse_db_web`.`pulse_partner` ;
+
+CREATE TABLE IF NOT EXISTS `pulse_db_web`.`pulse_partner` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` CHAR NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1001;
+
 USE `pulse_db_log` ;
 
 -- -----------------------------------------------------
@@ -351,7 +364,11 @@ CREATE TABLE IF NOT EXISTS `pulse_db_log`.`log_account_role` (
   `action_type` INT NOT NULL COMMENT '1=登录\n2=注册',
   `log_time` INT NOT NULL,
   `log_ip` CHAR(20) NOT NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`),
+  INDEX `role_id` (`account_id` ASC, `role_id` ASC, `product_id` ASC, `server_id` ASC, `terminal_type` ASC, `partner` ASC),
+  INDEX `action_type` (`action_type` ASC),
+  INDEX `sts` (`product_id` ASC, `server_id` ASC, `terminal_type` ASC, `partner` ASC, `action_type` ASC, `log_time` ASC),
+  INDEX `unique_role_id` (`role_id` ASC))
 ENGINE = InnoDB;
 
 
@@ -451,7 +468,8 @@ CREATE TABLE IF NOT EXISTS `pulse_db_log`.`log_consume` (
   `item_name` CHAR(64) NOT NULL,
   `item_type` TINYINT NOT NULL,
   `time` INT NOT NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`),
+  INDEX `role_id` (`account_id` ASC, `role_id` ASC, `product_id` ASC, `server_id` ASC, `partner` ASC, `currency_type` ASC))
 ENGINE = InnoDB;
 
 
