@@ -2,8 +2,8 @@
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 require_once('ICrud.php');
 
-class Mproductcommon extends CI_Model implements ICrud {
-	private $accountTable = 'log_product_common';
+class Mlogordergame extends CI_Model implements ICrud {
+	private $accountTable = 'log_order_game';
 	private $currentdb = null;
 	
 	public function __construct()

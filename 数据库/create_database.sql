@@ -408,6 +408,9 @@ CREATE TABLE IF NOT EXISTS `pulse_db_log`.`log_product_consume` (
   `count_upaid` INT NOT NULL COMMENT '日付费用户数（去重）',
   `count_paid` INT NOT NULL COMMENT '日付费次数（有重复）',
   `arpu` INT NOT NULL COMMENT '销售金额/付费用户数(付费一次，重复不计)',
+  `login_arpu` INT NOT NULL DEFAULT 0 COMMENT '登录用户付费转化率\n付费用户/登录用户',
+  `register_arpu` INT NOT NULL DEFAULT 0 COMMENT '新增注册用户付费转化率\n付费用户/注册用户',
+  `all_arpu` INT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -486,6 +489,39 @@ CREATE TABLE IF NOT EXISTS `pulse_db_log`.`log_online_count_detail` (
   `minutes` INT NOT NULL,
   `count` INT NOT NULL,
   PRIMARY KEY (`date`, `product_id`, `server_id`, `hour`, `minutes`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pulse_db_log`.`log_online_avg_daily`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pulse_db_log`.`log_online_avg_daily` ;
+
+CREATE TABLE IF NOT EXISTS `pulse_db_log`.`log_online_avg_daily` (
+  `id` BIGINT NOT NULL,
+  `date` DATE NOT NULL,
+  `product_id` INT NOT NULL,
+  `server_id` INT NOT NULL,
+  `hour` INT NOT NULL,
+  `count` INT NOT NULL DEFAULT 0,
+  `arpu` INT NOT NULL DEFAULT 0 COMMENT '平均在线ARPU',
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pulse_db_log`.`log_online_max_daily`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pulse_db_log`.`log_online_max_daily` ;
+
+CREATE TABLE IF NOT EXISTS `pulse_db_log`.`log_online_max_daily` (
+  `id` BIGINT NOT NULL,
+  `date` DATE NOT NULL,
+  `product_id` INT NOT NULL,
+  `server_id` INT NOT NULL,
+  `hour` INT NOT NULL,
+  `count` INT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 

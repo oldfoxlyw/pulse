@@ -3,7 +3,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 require_once('ICrud.php');
 
 class Maccount extends CI_Model implements ICrud {
-	private $accountTable = 'pulse_account';
+	private $accountTable = 'pulse_role';
 	
 	public function __construct()
 	{
@@ -100,6 +100,11 @@ class Maccount extends CI_Model implements ICrud {
 		{
 			return false;
 		}
+	}
+
+	public function db()
+	{
+		return $this->db;
 	}
 }
 

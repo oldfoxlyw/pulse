@@ -46,8 +46,9 @@ class Product_common extends CI_Controller
 		$this->load->model('mlogrole');
 		$this->load->model('mserver');
 		$this->load->model('mpartner');
+		$this->load->model('mproductcommon');
 		$partner_result = $this->mpartner->read();
-		$terminal_type = array(1, 2, 3);
+		$terminal_type = array(1, 2, 3, 0);
 
 		$db = $this->mlogrole->db();
 		foreach($product_result as $product)
@@ -66,7 +67,10 @@ class Product_common extends CI_Controller
 						$db->where('product_id', $product->product_id);
 						$db->where('server_id', $server->server_id);
 						$db->where('partner', $partner->id);
-						$db->where('terminal_type', $terminal);
+						if($terminal != 0)
+						{
+							$db->where('terminal_type', $terminal);
+						}
 						$db->where('action_type', 2);
 						$db->group_by('role_id');
 						$query = $db->get('log_account_role');
@@ -78,7 +82,10 @@ class Product_common extends CI_Controller
 						$db->where('product_id', $product->product_id);
 						$db->where('server_id', $server->server_id);
 						$db->where('partner', $partner->id);
-						$db->where('terminal_type', $terminal);
+						if($terminal != 0)
+						{
+							$db->where('terminal_type', $terminal);
+						}
 						$db->where('action_type', 2);
 						$db->where('log_time >=', $lastTimeStart);
 						$db->where('log_time <=', $lastTimeEnd);
@@ -92,7 +99,10 @@ class Product_common extends CI_Controller
 						$db->where('product_id', $product->product_id);
 						$db->where('server_id', $server->server_id);
 						$db->where('partner', $partner->id);
-						$db->where('terminal_type', $terminal);
+						if($terminal != 0)
+						{
+							$db->where('terminal_type', $terminal);
+						}
 						$db->where('action_type', 1);
 						$db->where('log_time >=', $lastTimeStart);
 						$db->where('log_time <=', $lastTimeEnd);
@@ -106,7 +116,10 @@ class Product_common extends CI_Controller
 						$db->where('product_id', $product->product_id);
 						$db->where('server_id', $server->server_id);
 						$db->where('partner', $partner->id);
-						$db->where('terminal_type', $terminal);
+						if($terminal != 0)
+						{
+							$db->where('terminal_type', $terminal);
+						}
 						$db->where('action_type', 1);
 						$db->where('log_time >=', $lastTimeStart);
 						$db->where('log_time <=', $lastTimeEnd);
