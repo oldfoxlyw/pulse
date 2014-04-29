@@ -330,6 +330,8 @@ CREATE TABLE IF NOT EXISTS `pulse_db_web`.`pulse_role` (
   `level` INT NOT NULL,
   `last_mission` CHAR(36) NOT NULL,
   `login_time` INT NOT NULL,
+  `order_count` INT NOT NULL DEFAULT 0 COMMENT '累计付费次数',
+  `order_sum` INT NOT NULL DEFAULT 0 COMMENT '累计充值金额（分为单位）',
   PRIMARY KEY (`product_id`, `server_id`, `account_id`, `role_id`, `partner`))
 ENGINE = InnoDB;
 
@@ -404,9 +406,8 @@ CREATE TABLE IF NOT EXISTS `pulse_db_log`.`log_product_consume` (
   `server_id` INT NOT NULL,
   `order_type` TINYINT NOT NULL COMMENT '充值渠道：0=总数 1=paypal 999=平台直充',
   `partner` INT NOT NULL,
-  `sum_order` INT NOT NULL,
+  `sum_order` INT NOT NULL COMMENT '订单总额',
   `count_upaid` INT NOT NULL COMMENT '日付费用户数（去重）',
-  `count_paid` INT NOT NULL COMMENT '日付费次数（有重复）',
   `arpu` INT NOT NULL COMMENT '销售金额/付费用户数(付费一次，重复不计)',
   `login_arpu` INT NOT NULL DEFAULT 0 COMMENT '登录用户付费转化率\n付费用户/登录用户',
   `register_arpu` INT NOT NULL DEFAULT 0 COMMENT '新增注册用户付费转化率\n付费用户/注册用户',
@@ -445,7 +446,8 @@ CREATE TABLE IF NOT EXISTS `pulse_db_log`.`log_order_game` (
   `product_id` INT NOT NULL,
   `server_id` INT NOT NULL,
   `partner` INT NOT NULL,
-  `order_cash` INT NOT NULL,
+  `order_cash` INT NOT NULL COMMENT '金额（分为单位）',
+  `gold_count` INT NOT NULL COMMENT '增加的游戏币数量',
   `account_cash` INT NOT NULL COMMENT '剩余平台币',
   `order_time` INT NOT NULL,
   `order_type` INT NOT NULL DEFAULT 999 COMMENT '充值渠道：1=paypal 999=平台直充',
@@ -522,6 +524,45 @@ CREATE TABLE IF NOT EXISTS `pulse_db_log`.`log_online_max_daily` (
   `hour` INT NOT NULL,
   `count` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pulse_db_log`.`log_function_click_count`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pulse_db_log`.`log_function_click_count` ;
+
+CREATE TABLE IF NOT EXISTS `pulse_db_log`.`log_function_click_count` (
+  `func_name` CHAR(16) NOT NULL,
+  `count` BIGINT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`func_name`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pulse_db_log`.`log_product_order_count`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pulse_db_log`.`log_product_order_count` ;
+
+CREATE TABLE IF NOT EXISTS `pulse_db_log`.`log_product_order_count` (
+  `role_id` BIGINT NOT NULL,
+  `date` DATE NOT NULL,
+  `count` INT NOT NULL,
+  PRIMARY KEY (`role_id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pulse_db_log`.`log_product_paid_count`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pulse_db_log`.`log_product_paid_count` ;
+
+CREATE TABLE IF NOT EXISTS `pulse_db_log`.`log_product_paid_count` (
+  `log_date` DATE NOT NULL,
+  `role_id` BIGINT NOT NULL,
+  `count` INT NOT NULL COMMENT '日付费次数',
+  `sum` INT NOT NULL,
+  PRIMARY KEY (`log_date`))
 ENGINE = InnoDB;
 
 
