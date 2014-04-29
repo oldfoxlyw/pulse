@@ -2,7 +2,7 @@
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 require_once('ICrud.php');
 
-class Maccount extends CI_Model implements ICrud {
+class Mrole extends CI_Model implements ICrud {
 	private $accountTable = 'pulse_role';
 	
 	public function __construct()

@@ -10,13 +10,10 @@ class Product_paid_count extends CI_Controller
 	 * @author johnnyEven
 	 * @version Pulse/service account.php - 1.0.1.20130409 10:52
 	 */
-
-	private $currentdb = null;
 	
 	public function __construct()
 	{
 		parent::__construct();
-		$this->currentdb = $this->database->load('logdb', TRUE);
 	}
 
 	public function sts_common()
@@ -47,6 +44,7 @@ class Product_paid_count extends CI_Controller
 		$result = $query->result();
 		$query->free_result();
 
+		$logdb = $this->load->database('logdb', TRUE);
 		$role_id_data = array();
 		$data = array();
 		for($i=0; $i<count($result); $i++)
@@ -64,7 +62,7 @@ class Product_paid_count extends CI_Controller
 			array_push($data, $item);
 			array_push($role_id_data, $result[$i]->role_id);
 		}
-		$db->insert_batch('log_product_paid_count', $data);
+		$logdb->insert_batch('log_product_paid_count', $data);
 
 		$db->where_in('role_id', $role_id_data);
 		$db->set('order_count', 0);

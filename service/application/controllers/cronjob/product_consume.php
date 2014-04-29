@@ -10,13 +10,11 @@ class Product_consume extends CI_Controller
 	 * @author johnnyEven
 	 * @version Pulse/service account.php - 1.0.1.20130409 10:52
 	 */
-
-	private $currentdb = null;
 	
 	public function __construct()
 	{
 		parent::__construct();
-		$this->currentdb = $this->database->load('logdb', TRUE);
+		$this->currentdb = $this->load->database('logdb', TRUE);
 	}
 
 	public function sts_common()
@@ -167,6 +165,7 @@ class Product_consume extends CI_Controller
 							'register_arpu'			=>	$register_arpu,
 							'all_arpu'				=>	$all_arpu
 						);
+						$this->mproductconsume->create($parameter);
 					}
 				}
 			}

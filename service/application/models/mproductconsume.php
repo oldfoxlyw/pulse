@@ -2,7 +2,7 @@
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 require_once('ICrud.php');
 
-class Mproductcommon extends CI_Model implements ICrud {
+class Mproductconsume extends CI_Model implements ICrud {
 	private $accountTable = 'log_product_consume';
 	private $currentdb = null;
 	
