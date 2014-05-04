@@ -5,7 +5,7 @@ class Product_common extends CI_Controller
 {
 	/**
 	 * 
-	 * 统计
+	 * 统计（每日04:05执行）
 	 * 
 	 * @author johnnyEven
 	 * @version Pulse/service account.php - 1.0.1.20130409 10:52

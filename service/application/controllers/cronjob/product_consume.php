@@ -5,7 +5,7 @@ class Product_consume extends CI_Controller
 {
 	/**
 	 * 
-	 * 统计
+	 * 统计（每日04:15执行）
 	 * 
 	 * @author johnnyEven
 	 * @version Pulse/service account.php - 1.0.1.20130409 10:52
@@ -46,6 +46,7 @@ class Product_consume extends CI_Controller
 		$this->load->model('mserver');
 		$this->load->model('mpartner');
 		$this->load->model('mproductconsume');
+		$this->load->model('monlinedetail');
 		$partner_result = $this->mpartner->read();
 		$order_type = array(1, 999, 0);
 
@@ -112,7 +113,34 @@ class Product_consume extends CI_Controller
 						$query->free_result();
 
 						//付费用户ARPU（分为单位）
-						$arpu = round($sum_order / $count_upaid);
+						if($count_upaid > 0)
+						{
+							$arpu = round($sum_order / $count_upaid);
+						}
+						else
+						{
+							$arpu = 0;
+						}
+
+						//日平均在线ARPU（分为单位）
+						//日平均在线
+						$db->select_avg('count', 'count');
+						$db->where('product_id', $product->product_id);
+						$db->where('server_id', $server->server_id);
+						$db->where('date', $date);
+						$query = $db->get('log_online_count_detail');
+						$online_avg = $query->row();
+						$query->free_result();
+						$online_avg = intval($online_avg->count);
+
+						if($online_avg > 0)
+						{
+							$online_arpu = round($sum_order / $online_avg);
+						}
+						else
+						{
+							$online_arpu = 0;
+						}
 
 						//登录用户付费转化率，单位为万分之一
 						$login_count = $common_result[$product->product_id][$server->server_id][$partner->id]->count_ulogin;
@@ -161,6 +189,7 @@ class Product_consume extends CI_Controller
 							'sum_order'				=>	$sum_order,
 							'count_upaid'			=>	$count_upaid,
 							'arpu'					=>	$arpu,
+							'online_arpu'			=>	$online_arpu,
 							'login_arpu'			=>	$login_arpu,
 							'register_arpu'			=>	$register_arpu,
 							'all_arpu'				=>	$all_arpu
