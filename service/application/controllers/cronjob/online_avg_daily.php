@@ -24,7 +24,7 @@ class Online_avg_daily extends CI_Controller
 		$hour = date('G', $time);
 
 		$this->load->model('monlinedetail');
-		$this->load->model('monlinemax');
+		$this->load->model('monlineavg');
 		$db = $this->monlinedetail->db();
 
 		$this->load->model('product');
@@ -61,7 +61,7 @@ class Online_avg_daily extends CI_Controller
 					'hour'			=>	$hour,
 					'count'			=>	$count
 				);
-				$this->monlinemax->create($parameter);
+				$this->monlineavg->create($parameter);
 			}
 		}
 	}
