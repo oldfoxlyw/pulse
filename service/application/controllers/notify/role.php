@@ -165,6 +165,9 @@ class Role extends CI_Controller
 		$account_id = $this->input->post('account_id');
 		$role_id = $this->input->post('role_id');
 		$level = $this->input->post('level');
+		$vip_level = $this->input->post('vip_level');
+		$special_gold = $this->input->post('special_gold');
+		$job = $this->input->post('job');
 		$last_mission = $this->input->post('mission');
 
 		if(!empty($product_id) && !empty($server_id) && !empty($account_id) && !empty($role_id))
@@ -181,6 +184,9 @@ class Role extends CI_Controller
 			);
 			$parameter = array(
 				'level'			=>	$level,
+				'vip_level'		=>	$vip_level,
+				'special_gold'	=>	$special_gold,
+				'job'			=>	$job,
 				'last_mission'	=>	$last_mission
 			);
 			$this->mrole->update($key, $parameter);
